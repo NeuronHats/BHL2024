@@ -17,8 +17,8 @@ class User(UserMixin, db.Model):
     soft_skills_text: so.Mapped[str] = so.mapped_column(sa.String(512), default="")
     cv_filename: so.Mapped[str] = so.mapped_column(sa.String(64))
     cv_pdf_content: so.Mapped[bytes] = so.mapped_column(sa.LargeBinary)
-    profile_picture_bytes: so.Mapped[bytes] = so.mapped(sa.LargeBinary)
-    
+    profile_picture_bytes: so.Mapped[bytes] = so.mapped_column(sa.LargeBinary)
+
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
     
