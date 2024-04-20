@@ -1,6 +1,6 @@
 from app import app, db
 from app.models import User, Company, JobPosting
-from app.forms import LoginForm, RegistrationForm
+from app.forms import LoginForm, RegistrationForm, EmbedRegistrationForm
 import sqlalchemy as sa
 from flask import jsonify, render_template, redirect, url_for, request, flash
 from flask_login import current_user, logout_user, login_user
@@ -45,6 +45,15 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         user = User(email=form.email.data, is_company=form.company_check.data)
+        if not form.company_check.data:
+            cv = form.cv.data
+            cv_pdf_content = cv.stream.read()
+            user = User(
+                email=form.email.data,
+                is_company=form.company_check.data,
+                cv_filename=cv.filename,
+                cv_pdf_content=cv_pdf_content,
+            )
         user.set_password(form.password_hash.data)
         db.session.add(user)
         db.session.commit()
@@ -122,6 +131,22 @@ def embed():
         posting["image"] = data[0][-1]
         listings.append(posting)
     return render_template("embed.html", listings=listings)
+
+
+@app.route("/embed_register")
+def embed_register():
+    if current_user.is_authenticated:
+        return redirect(url_for("index"))
+    form = EmbedRegistrationForm()
+    if form.validate_on_submit():
+        user = User(email=request.args.get("email"))
+        user.set_password(form.password.data)
+        db.session.add(user)
+        db.session.commit()
+
+        flash("Congratulations, you are now a registered user!")
+        return redirect(url_for("login"))
+    return render_template("embed_register.html", title="Register", form=form)
 
 
 @app.route("/embed_test")
