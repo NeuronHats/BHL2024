@@ -173,13 +173,13 @@ h1, h2, h3 {
     transform: translateX(0);
 }
 40% {
-     background-color: #60a18e;
+     background-color: rgb(140, 255, 140);
     transform: translateX(150px);
     rotate: 15deg;
     margin-left: 10px;
 }
 80% {
-    background-color: #FFACE4;
+    background-color: rgb(255, 120, 120);
     transform: translateX(-150px);
     rotate: -15deg;
     margin-right: 10px;
