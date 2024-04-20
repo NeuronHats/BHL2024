@@ -19,10 +19,8 @@ def index():
         "salary": "$100,000",
         "city": "San Francisco",
     }
-    return render_template('swaper.html', company=company)
+    return render_template("swaper.html", company=company)
     # return render_template('base.html')
-
-
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -31,8 +29,7 @@ def login():
         return redirect(url_for("index"))
     form = LoginForm()
     if form.validate_on_submit():
-        user = db.session.scalar(
-            sa.select(User).where(User.email == form.email.data))
+        user = db.session.scalar(sa.select(User).where(User.email == form.email.data))
         if user is None or not user.check_password(form.password_hash.data):
             flash("Invalid email or password")
             return redirect(url_for("login"))
@@ -50,8 +47,13 @@ def register():
         user = User(email=form.email.data, is_company=form.company_check.data)
         if not form.company_check.data:
             cv = form.cv.data
-            cv_pdf_content=cv.stream.read()
-            user = User(email=form.email.data, is_company=form.company_check.data, cv_filename=cv.filename, cv_pdf_content=cv_pdf_content)
+            cv_pdf_content = cv.stream.read()
+            user = User(
+                email=form.email.data,
+                is_company=form.company_check.data,
+                cv_filename=cv.filename,
+                cv_pdf_content=cv_pdf_content,
+            )
         user.set_password(form.password_hash.data)
         db.session.add(user)
         db.session.commit()
@@ -66,21 +68,26 @@ def check():
         return "authed"
     return "not authed"
 
+
 # STILL DOESNT WORK
 @app.route("/embed_json")
 def embed_json():
     listings = []
     num_of_listings = db.session.query(JobPosting).count()
     for i in range(10):
-        random_listing = db.session.query(
-        JobPosting.title,
-        JobPosting.description,
-        JobPosting.location,
-        JobPosting.salary_range_lower,
-        JobPosting.salary_range_upper,
-        Company.name.label('company_name'),
-        Company.image_b64.label('company_image')
-        ).join(Company, JobPosting.company_id == Company.id).where(JobPosting.id == random.randint(1, num_of_listings))
+        random_listing = (
+            db.session.query(
+                JobPosting.title,
+                JobPosting.description,
+                JobPosting.location,
+                JobPosting.salary_range_lower,
+                JobPosting.salary_range_upper,
+                Company.name.label("company_name"),
+                Company.image_b64.label("company_image"),
+            )
+            .join(Company, JobPosting.company_id == Company.id)
+            .where(JobPosting.id == random.randint(1, num_of_listings))
+        )
         data = random_listing.all()
         print(data)
         posting = {}
@@ -93,21 +100,26 @@ def embed_json():
     # print(listings)
     return jsonify(listings)
 
+
 @app.route("/embed")
 def embed():
     listings = []
     num_of_listings = db.session.query(JobPosting).count()
     for _ in range(10):
-        random_listing = db.session.query(
-        JobPosting.title,
-        JobPosting.description,
-        JobPosting.location,
-        JobPosting.distance,
-        JobPosting.salary_range_lower,
-        JobPosting.salary_range_upper,
-        Company.name.label('company_name'),
-        Company.image_b64.label('company_image')
-        ).join(Company, JobPosting.company_id == Company.id).where(JobPosting.id == random.randint(1, num_of_listings))
+        random_listing = (
+            db.session.query(
+                JobPosting.title,
+                JobPosting.description,
+                JobPosting.location,
+                JobPosting.distance,
+                JobPosting.salary_range_lower,
+                JobPosting.salary_range_upper,
+                Company.name.label("company_name"),
+                Company.image_b64.label("company_image"),
+            )
+            .join(Company, JobPosting.company_id == Company.id)
+            .where(JobPosting.id == random.randint(1, num_of_listings))
+        )
         data = random_listing.all()
         posting = {}
         posting["company"] = data[0][6]
@@ -143,6 +155,7 @@ def embed_test():
     width = 500
     height = 700
     return render_template("embed_test.html", width=width, height=height)
+
 
 @app.route("/logout")
 def logout():

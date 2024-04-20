@@ -1,6 +1,68 @@
 body {
-    margin: 0;
-    padding: 0;
-    min-height: 100%;
-    background-color: black;
+   padding: 0;
+   margin: 0;
+   background-color: black;
+   display: flex;
+   flex-direction: column;
+   min-height: 100vh;
+   justify-content: space-between;
+   overflow-x: hidden;
+   align-items: center;
+}
+.swiping-card {
+   position: relative;
+   width: 90vw;
+   max-width: 400px;
+   height: 70vh;
+   background-color: #f2f2f2;
+   border-radius: 8px;
+   box-shadow: 0 0 -10px rgba(0, 0, 0, 0.1);
+   overflow: hidden;
+   cursor: -webkit-grab;
+   cursor: -moz-grab;
+   cursor: grab;
+   margin: auto;
+}
+
+.swiping-card::-webkit-scrollbar {
+   display: none;
+}
+
+.swiping-card img {
+   width: 150px;
+   height: 150px;
+   border-radius: 100%;
+   border: 1px solid #ccc;
+   margin: 20px auto;
+}
+
+.swiping-card h1 {
+   font-size: 24px;
+   font-weight: bold;
+   text-align: center;
+   margin-bottom: 20px;
+}
+
+.swiping-card section {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   padding: 10px;
+   border-top: 1px solid #ccc;
+   text-align: center;
+}
+
+.buttons {
+   text-align: center;
+   margin-top: 20px;
+}
+
+.buttons button {
+   font-size: 32px;
+   cursor: pointer;
+   background: none;
+   border: none;
+   color: #333;
+   margin: 0 10px;
 }
