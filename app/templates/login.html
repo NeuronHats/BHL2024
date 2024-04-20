@@ -7,10 +7,16 @@
         <p>
             {{ form.email.label }}<br>
             {{ form.email(size=32) }}
+            {% for error in form.email.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
         </p>
         <p>
             {{ form.password_hash.label }}<br>
             {{ form.password_hash(size=32) }}
+            {% for error in form.password_hash.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
         </p>
         <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
         <p>{{ form.submit() }}</p>
