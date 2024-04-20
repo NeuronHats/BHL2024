@@ -13,7 +13,7 @@ class User(UserMixin, db.Model):
     firstname: so.Mapped[Optional[str]] = so.mapped_column(sa.String(64))
     lastname: so.Mapped[Optional[str]] = so.mapped_column(sa.String(64))
     education_text: so.Mapped[Optional[str]] = so.mapped_column(sa.String(256))
-    education_level: so.Mapped[Optional[str]] = so.mapped_column(sa.Integer)
+    education_level: so.Mapped[Optional[int]] = so.mapped_column(sa.Integer)
     experience_text: so.Mapped[Optional[str]] = so.mapped_column(sa.String(512))
     experience_years: so.Mapped[Optional[int]] = so.mapped_column(sa.Integer)
     technologies_text: so.Mapped[Optional[str]] = so.mapped_column(sa.String(512))
