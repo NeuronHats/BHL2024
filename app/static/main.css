@@ -251,3 +251,42 @@ h1, h2, h3 {
     display: flex;
     flex-direction: column;
 }
+label[for=email] {
+    color: #ccc;
+}
+input#email {
+    padding: 10px;
+}
+label[for=password_hash] {
+    color: #ccc;
+}
+input#password_hash {
+    padding: 10px;
+}
+label[for=remember_me] {
+    color: #ccc;
+}
+label[for=confirm_password] {
+    color: #ccc;
+}
+input#confirm_password {
+    padding: 10px;
+}
+input#cv {
+    color: #ccc;
+}
+label[for=company_check] {
+    color: #ccc;
+}
+input#remember_me {
+    transform: scale(2);
+    padding: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+input#company_check {
+    transform: scale(2);
+    padding: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}

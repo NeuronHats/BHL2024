@@ -7,19 +7,20 @@
 
 
 # TODO:
-- [ ] applications
+- [x] applications
 - [ ] login styles
 - [ ] register styles
-- [ ] recruiter panel
-- [ ] main page if no cards, show text "no more cards"
-- [ ] paid swipes (hehe)
-- [ ] ai sumarizer
+- [x] recruiter panel
+- [x] main page if no cards, show text "no more cards"
+- [x] ai sumarizer
+- [ ] message "applied" when you swipe right
 - [ ] main page polish (buttons, more dense text)
 - [ ] embed register
 - [ ] presentation
 - [ ] one pager
 - [ ] preparation for judges
-- [ ] message "applied" when you swipe right
+- [ ] paid swipes (hehe)
+- [ ] main instead of menu, home page
 
 
 

@@ -2,32 +2,34 @@
 
 {% block content %}
     {% include 'navbar.html' %}
-    <h1>Create an account</h1>
-    <form action="" method="post" enctype="multipart/form-data" novalidate>
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.email.label }}<br>
-            {{ form.email(size=32) }}
-            {% for error in form.email.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.password_hash.label }}<br>
-            {{ form.password_hash(size=32) }}
-            {% for error in form.password_hash.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.confirm_password.label }}<br>
-            {{ form.confirm_password(size=32) }}
-            {% for error in form.confirm_password.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>{{ form.cv() }}</p>
-        <p>{{ form.company_check() }} {{ form.company_check.label }}</p>
-        <p>{{ form.submit() }}</p>
-    </form>
+    <div style="width: 17%; margin: auto auto auto auto; margin-top: 15%;">
+        <h1 style="color: #ccc; font-size: 48px;">Create an account</h1>
+        <form action="" method="post" enctype="multipart/form-data" novalidate>
+            {{ form.hidden_tag() }}
+            <p>
+                {{ form.email.label }}<br>
+                {{ form.email(size=32) }}
+                {% for error in form.email.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.password_hash.label }}<br>
+                {{ form.password_hash(size=32) }}
+                {% for error in form.password_hash.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.confirm_password.label }}<br>
+                {{ form.confirm_password(size=32) }}
+                {% for error in form.confirm_password.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>{{ form.cv() }}</p>
+            <p>{{ form.company_check() }} {{ form.company_check.label }}</p>
+            <p>{{ form.submit(class='btn btn-primary', style='background-color: #ccc; color: #222; padding: 10px; border: 0;') }}</p>
+        </form>
+    </div>
 {% endblock %}
