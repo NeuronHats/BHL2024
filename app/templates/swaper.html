@@ -73,7 +73,7 @@
     }
 
     .tinder--card {
-      {#display: inline-block;#}
+      display: inline-block;
       width: 90vw;
       max-width: 400px;
       height: 70vh;
@@ -97,7 +97,7 @@
       pointer-events: none;
     }
 
-    .tinder--card h3 {
+    .tinder--card section {
       margin-top: 32px;
       font-size: 32px;
       padding: 0 16px;
@@ -325,7 +325,7 @@
         var yMulti = event.deltaY / 80;
         var rotate = xMulti * yMulti;
         console.log(event.target.parentElement);
-        event.target.parentElement.style.transform = 'translate(' + event.deltaX + 'px, ' + event.deltaY + 'px) rotate(' + rotate + 'deg)';
+        event.target.style.transform = 'translate(' + event.deltaX + 'px, ' + event.deltaY + 'px) rotate(' + rotate + 'deg)';
 
         var keep = Math.abs(event.deltaX) < 100;
 
@@ -366,7 +366,11 @@
           var yMulti = event.deltaY / 80;
           var rotate = xMulti * yMulti;
 
-          event.target.style.transform = 'translate(' + toX + 'px, ' + (toY + event.deltaY) + 'px) rotate(' + rotate + 'deg)';
+          event.target.style.transition = 'transform 0.3s ease-in-out'; // Dodanie animacji CSS
+
+            setTimeout(function () {
+                event.target.style.transform = 'translate(' + toX + 'px, ' + (toY + event.deltaY) + 'px) rotate(' + rotate + 'deg)';
+            }, 0); // Opóźnienie transformacji
           initCards();
         }
       });
