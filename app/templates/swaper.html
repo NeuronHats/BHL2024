@@ -227,13 +227,6 @@
       var newCards = document.querySelectorAll('.tinder--card:not(.removed)');
 
 
-      newCards.forEach(function (card, index) {
-        card.style.zIndex = allCards.length - index;
-        card.style.transform = 'scale(' + (20 - index) / 20 + ') translateY(-' + 30 * index + 'px)';
-        card.style.opacity = (10 - index) / 10;
-      });
-
-
       tinderContainer.classList.add('loaded');
     }
 
@@ -249,20 +242,20 @@
         tinderContainer.classList.toggle('tinder_love', event.deltaX > 0);
         tinderContainer.classList.toggle('tinder_nope', event.deltaX < 0);
 
-        var xMulti = event.deltaX * 0.03;
-        var yMulti = event.deltaY / 80;
-        var rotate = xMulti * yMulti;
-        console.log(event.target.parentElement);
-        event.target.style.transform = 'translate(' + event.deltaX + 'px, ' + event.deltaY + 'px) rotate(' + rotate + 'deg)';
+        var xMulti = event.deltaX * -0.03;
+        var yMulti = Math.abs(event.deltaY) / -8;
+        var rotate = xMulti * -1;
+
+        event.target.style.transform = 'translate(' + event.deltaX + 'px, ' + yMulti + 'px) rotate(' + rotate + 'deg)';
 
         var keep = Math.abs(event.deltaX) < 100;
 
         if (!keep) {
             if (event.deltaX < 0) {
-                var redIntensity = (255 - Math.min(Math.abs(event.deltaX) / 5, 255)) / 2;
+                var redIntensity = Math.max((255 - Math.min(Math.abs(event.deltaX) / 5, 255)) * 1.2, 100);
                 event.target.style.background = 'rgb( 255, ' + redIntensity + ', ' + redIntensity + ')';
             } else {
-                var greenIntensity = (255 - Math.min(Math.abs(event.deltaX) / 5, 255));
+                var greenIntensity = Math.max((255 - Math.min(Math.abs(event.deltaX) / 5, 255)) * 1.2, 170);
                 event.target.style.background = 'rgb(' + greenIntensity +  ', 255, ' + greenIntensity + ')';
             }
 
@@ -277,40 +270,6 @@
           el.classList.remove('moving');
           tinderContainer.classList.remove('tinder_love');
           tinderContainer.classList.remove('tinder_nope');
-
-
-        var moveOutWidth = document.body.clientWidth;
-        var keep = Math.abs(event.deltaX) < 80 || Math.abs(event.velocityX) < 0.5;
-
-          var moveOutWidth = document.body.clientWidth;
-          var keep = Math.abs(event.deltaX) < 320;
-
-
-          event.target.classList.toggle('removed', !keep);
-
-
-        if (keep) {
-          event.target.style.transform = '';
-        } else {
-          var endX = Math.max(Math.abs(event.velocityX) * moveOutWidth, moveOutWidth);
-          var toX = event.deltaX > 0 ? endX : -endX;
-          var endY = Math.abs(event.velocityY) * moveOutWidth;
-          var toY = event.deltaY > 0 ? endY : -endY;
-          var xMulti = event.deltaX * 0.03;
-          var yMulti = event.deltaY / 80;
-          var rotate = xMulti * yMulti;
-
-          if (keep) {
-
-              event.target.style.background = 'white';
-              event.target.style.transition = 'transform 0.1s linear'; // Dodanie animacji CSS
-              event.target.style.transform = '';
-
-
-          } else {
-
-              var endX = Math.max(Math.abs(event.velocityX) * moveOutWidth, moveOutWidth);
-             var toX = event.deltaX > 0 ? endX : -endX;
 
           var moveOutWidth = document.body.clientWidth;
           var keep = Math.abs(event.deltaX) < 320;
