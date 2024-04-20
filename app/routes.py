@@ -9,7 +9,6 @@ from flask import (
     url_for,
     request,
     flash,
-    g,
 )
 from flask_login import current_user, logout_user, login_user
 

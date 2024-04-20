@@ -1,12 +1,11 @@
 <nav>
-  <h1>Flaskr</h1>
   <ul>
-    {% if g.user %}
-      <li><span>{{ g.user }}</span>
-      <li><a href="{{ url_for('logout') }}">Log Out</a>
+    {% if current_user.is_authenticated %}
+      <li><a href="/applications">My applications</a></li>
+      <li><a href="{{ url_for('logout') }}">Log Out</a></li>
     {% else %}
-      <li><a href="{{ url_for('register') }}">Register</a>
-      <li><a href="{{ url_for('login') }}">Log In</a>
+      <li><a href="{{ url_for('register') }}">Register</a></li>
+      <li><a href="{{ url_for('login') }}">Log In</a></li>
     {% endif %}
   </ul>
 </nav>
