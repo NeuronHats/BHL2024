@@ -30,7 +30,11 @@ class User(UserMixin, db.Model):
     cv_filename: so.Mapped[Optional[str]] = so.mapped_column(sa.String(64))
     cv_pdf_content: so.Mapped[Optional[bytes]] = so.mapped_column(sa.LargeBinary)
     profile_picture_bytes: so.Mapped[Optional[bytes]] = so.mapped_column(sa.LargeBinary)
-
+    interested_job_postings: so.Mapped[list]= so.relationship(
+        "JobPosting",
+        secondary=user_interests,
+        back_populates="interested_users",
+    )
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
 
@@ -75,7 +79,7 @@ class JobPosting(db.Model):
 
     # Relationship to users interested in the job posting
     interested_users: so.Mapped[list] = so.relationship(
-        "User", secondary=user_interests, backref=so.backref("interested_job_postings")
+        "User", secondary=user_interests, back_populates="interested_job_postings"
     )
 
 
