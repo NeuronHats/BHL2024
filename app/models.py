@@ -6,13 +6,14 @@ from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
-user_interests = sa.Table('user_interests',
-    db.Column('user_id', sa.Integer, sa.ForeignKey('user.id'), primary_key=True),
-    db.Column('job_posting_id', sa.Integer, sa.ForeignKey('job_posting.id'), primary_key=True)
+user_interests = sa.Table('user_interests', db.metadata,
+    sa.Column('user_id', sa.Integer, sa.ForeignKey('user.id'), primary_key=True),
+    sa.Column('job_posting_id', sa.Integer, sa.ForeignKey('job_posting.id'), primary_key=True)
 )
 
 class User(UserMixin, db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
+    is_company: so.Mapped[bool] = so.mapped_column(sa.Boolean)
     email: so.Mapped[str] = so.mapped_column(sa.String(120), index=True, unique=True)
     password_hash: so.Mapped[Optional[str]] = so.mapped_column(sa.String(256))
     firstname: so.Mapped[Optional[str]] = so.mapped_column(sa.String(64))
