@@ -4,7 +4,7 @@
         "builder": "NIXPACKS"
     },
     "deploy": {
-        "startCommand": "flask run",
+        "startCommand": "flask run -p 443",
         "restartPolicyType": "ON_FAILURE",
         "restartPolicyMaxRetries": 10
     }
