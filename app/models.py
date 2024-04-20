@@ -4,8 +4,8 @@ from app import db, login
 from typing import Optional
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
-
-
+from sqlalchemy_serializer import SerializerMixin
+from dataclasses import dataclass
 user_interests = sa.Table(
     "user_interests",
     db.metadata,
@@ -16,7 +16,7 @@ user_interests = sa.Table(
 )
 
 
-class User(UserMixin, db.Model):
+class User(UserMixin, db.Model, SerializerMixin):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
     is_company: so.Mapped[bool] = so.mapped_column(sa.Boolean, nullable=True)
     email: so.Mapped[str] = so.mapped_column(sa.String(120), index=True, unique=True)
@@ -45,12 +45,13 @@ class User(UserMixin, db.Model):
 
 class Company(db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
-    name: so.Mapped[str] = so.mapped_column(sa.String(128))
-    city: so.Mapped[str] = so.mapped_column(sa.String(64))
-    address: so.Mapped[str] = so.mapped_column(sa.String(256))
-    description: so.Mapped[str] = so.mapped_column(sa.String(512))
-    company_size_lower: so.Mapped[int] = so.mapped_column(sa.Integer)
-    company_size_higher: so.Mapped[int] = so.mapped_column(sa.Integer)
+    name: so.Mapped[Optional[str]] = so.mapped_column(sa.String(128))
+    image_b64: so.Mapped[str] = so.mapped_column(sa.String(100000))
+    city: so.Mapped[Optional[str]] = so.mapped_column(sa.String(64))
+    address: so.Mapped[Optional[str]] = so.mapped_column(sa.String(256))
+    description: so.Mapped[Optional[str]] = so.mapped_column(sa.String(512))
+    company_size_lower: so.Mapped[Optional[int]] = so.mapped_column(sa.Integer)
+    company_size_higher: so.Mapped[Optional[int]] = so.mapped_column(sa.Integer)
     # Relationship to job postings
     job_postings: so.Mapped[list] = so.relationship(
         "JobPosting", back_populates="company", cascade="all, delete-orphan"
@@ -59,15 +60,15 @@ class Company(db.Model):
     def __repr__(self) -> str:
         return f"<Company {self.name}>"
 
-
+@dataclass
 class JobPosting(db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
     title: so.Mapped[str] = so.mapped_column(sa.String(120), nullable=False)
-    description: so.Mapped[str] = so.mapped_column(sa.String(1024))
+    description: so.Mapped[str] = so.mapped_column(sa.String(1024), default="")
     location: so.Mapped[str] = so.mapped_column(sa.String(256))
     salary_range_lower: so.Mapped[int] = so.mapped_column(sa.Integer)
     salary_range_upper: so.Mapped[int] = so.mapped_column(sa.Integer)
-
+    distance: so.Mapped[str] = so.mapped_column(sa.String(64))
     company_id: so.Mapped[int] = so.mapped_column(
         sa.Integer, sa.ForeignKey("company.id")
     )

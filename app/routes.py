@@ -1,24 +1,28 @@
 from app import app, db
-from app.models import User
+from app.models import User, Company, JobPosting
 from app.forms import LoginForm, RegistrationForm
 import sqlalchemy as sa
-from flask import render_template, redirect, url_for, request, flash
+from flask import jsonify, render_template, redirect, url_for, request, flash
 from flask_login import current_user, logout_user, login_user
 
+import random
 
-@app.route('/')
+
+@app.route("/")
 def index():
     company = {
-        'img': 'company_logo.png',
-        'name': 'Example Company',
-        'position': 'Software Engineer',
-        'experience': '5 years',
-        'education': 'Bachelor of Science in Computer Science',
-        'salary': '$100,000',
-        'city': 'San Francisco'
+        "img": "company_logo.png",
+        "name": "Example Company",
+        "position": "Software Engineer",
+        "experience": "5 years",
+        "education": "Bachelor of Science in Computer Science",
+        "salary": "$100,000",
+        "city": "San Francisco",
     }
     # return render_template('swaper.html', company=company)
     return render_template('base.html')
+
+
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -27,7 +31,8 @@ def login():
         return redirect(url_for("index"))
     form = LoginForm()
     if form.validate_on_submit():
-        user = db.session.scalar(sa.select(User).where(User.email == form.email.data))
+        user = db.session.scalar(
+            sa.select(User).where(User.email == form.email.data))
         if user is None or not user.check_password(form.password_hash.data):
             flash("Invalid email or password")
             return redirect(url_for("login"))
@@ -56,6 +61,38 @@ def check():
     if current_user.is_authenticated:
         return "authed"
     return "not authed"
+
+# STILL DOESNT WORK
+@app.route("/embed_json")
+def embed_json():
+    listings = []
+    num_of_listings = db.session.query(JobPosting).count()
+    for i in range(10):
+        random_listing = db.session.query( 
+        JobPosting.title, 
+        JobPosting.description, 
+        JobPosting.location, 
+        JobPosting.salary_range_lower, 
+        JobPosting.salary_range_upper,
+        Company.name.label('company_name'),
+        Company.image_b64.label('company_image')
+        ).join(Company, JobPosting.company_id == Company.id).where(JobPosting.id == random.randint(1, num_of_listings))
+        data = random_listing.all()
+        listings.append(data)
+    print(listings )
+    return jsonify(listings)
+
+@app.route("/embed")
+def embed():
+    listings = []
+    num_of_listings = db.session.query(JobPosting).count()
+    for i in range(10):
+        random_listing = db.session.scalar(
+            sa.select(JobPosting).where(JobPosting.id == random.randint(1, num_of_listings))
+        )
+        listings.append(random_listing)
+    print(listings)
+    return render_template("embed.html", listings=listings)
 
 
 @app.route("/logout")
