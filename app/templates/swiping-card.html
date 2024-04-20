@@ -3,22 +3,21 @@
 {% block content %}
 
 <style>
-
     .swiping-card {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
     }
-
 </style>
 
 <div class="swiping-card">
     <p>Company Name</p>
+    {% if company %}
         <!-- <section> -->
         <!--     <img src={{ company.img }} alt=""> -->
         <!--     <p>{{ company.name }}</p> -->
-        <!--     <!-- <p>{{ user.description }}</p> --> -->
+        <!--     <p>{{ user.description }}</p> -->
         <!---->
         <!--     <h4>Listed Position</h4> -->
         <!--     <p>{{ company.position }}</p> -->
@@ -36,6 +35,7 @@
         <!--     <p>{{ company.city }}</p> -->
         <!---->
         <!-- </section> -->
+    {% endif %}
     <div>
         <button type="button" class="like">Like</button>
         <button type="button" class="dislike">Dislike</button>

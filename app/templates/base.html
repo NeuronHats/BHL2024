@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
-    <link href="static/main.css" rel="stylesheet">
 </head>
-
 <body>
+    <div class="navbar">
+        {% include 'navbar.html' %}
+    </div>
 
-    {% include 'navbar.html' %}
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
 
-    {% include 'swiping-card.html' %}
-    {% include 'footer.html' %}
+    <div class="footer">
+        {% include 'footer.html' %}
+    </div>
 </body>
-
 </html>
+
