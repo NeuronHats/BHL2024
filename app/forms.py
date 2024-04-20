@@ -27,4 +27,6 @@ class RegistrationForm(FlaskForm):
             raise ValidationError("Please use a different email address.")
 
 class UserInfoForm(FlaskForm): 
+    firstname = StringField("First name", validators=[DataRequired()])
+    lastname = StringField("Last name", validators=[DataRequired()])
     pass
