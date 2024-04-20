@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from app import db
 from app.models import User
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, FieldList
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, FileField, IntegerField
 from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
 import sqlalchemy as sa
 
@@ -31,4 +31,12 @@ class RegistrationForm(FlaskForm):
 class UserInfoForm(FlaskForm):
     firstname = StringField("First name", validators=[DataRequired()])
     lastname = StringField("Last name", validators=[DataRequired()])
-    education_text = FieldList("Education", validators=[DataRequired()])
+    education_text = StringField("Education")
+    experience_years = IntegerField("Work expierience (years)", default=0)
+    experience_text = StringField("Education")
+    technologies_text = StringField("Technologies")
+    soft_skills_text = StringField("Soft Skills")
+    cv_file = FileField("Upload your resume: ", validators=[DataRequired()])
+    profile_picture_file = FileField("Upload your profile picture (JPG)", validators=[DataRequired()])
+
+    
