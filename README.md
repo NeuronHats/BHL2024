@@ -11,12 +11,15 @@
 - [ ] login styles
 - [ ] register styles
 - [ ] recruiter panel
+- [ ] main page if no cards, show text "no more cards"
+- [ ] paid swipes (hehe)
 - [ ] ai sumarizer
-- [ ] main page polish
+- [ ] main page polish (buttons, more dense text)
 - [ ] embed register
 - [ ] presentation
 - [ ] one pager
 - [ ] preparation for judges
+- [ ] message "applied" when you swipe right
 
 
 
