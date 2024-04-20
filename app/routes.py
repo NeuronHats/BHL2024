@@ -116,6 +116,11 @@ def embed():
         listings.append(posting)
     return render_template("embed.html", listings=listings)
 
+@app.route("/embed_test")
+def embed_test():
+    width = 500
+    height = 700
+    return render_template("embed_test.html", width=width, height=height)
 
 @app.route("/logout")
 def logout():
