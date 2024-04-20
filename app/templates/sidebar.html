@@ -1,0 +1,65 @@
+{% block sidebar %}
+<style>
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -250px; /* Initially hidden */
+        width: 250px;
+        height: 100%;
+        background-color: #333;
+        padding-top: 50px; /* Space for the menu toggle button */
+        transition: left 0.3s ease;
+    }
+
+    .sidebar a {
+        display: block;
+        color: #fff;
+        text-decoration: none;
+        padding: 10px;
+    }
+
+    .content {
+        margin-left: 0; /* Initial margin */
+        transition: margin-left 0.3s ease;
+    }
+
+    .menu-btn {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        font-size: 24px;
+        cursor: pointer;
+        background: none;
+        border: none;
+        color: #333;
+        z-index: 999;
+    }
+
+</style>
+    <div class="sidebar" id="sidebar">
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Contact</a>
+    </div>
+    <div class="content">
+        <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+        <h1>Main Content</h1>
+        <p>This is the main content area of the website.</p>
+    </div>
+
+<script>
+function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const content = document.querySelector('.content');
+
+    if (sidebar.style.left === '-250px') {
+        sidebar.style.left = '0';
+        content.style.marginLeft = '250px';
+    } else {
+        sidebar.style.left = '-250px';
+        content.style.marginLeft = '0';
+    }
+}
+</script>
+{% endblock %}
