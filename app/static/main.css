@@ -165,8 +165,8 @@ h1, h2, h3 {
   align-items: center;
 }
 
-.tinder--cards .tinder--card:last-child {
-    animation: moveAndChange 1.8s ease-in-out forwards;
+.tinder--cards .tinder--card:first-child {
+    animation: moveAndChange 2.1s ease-in-out forwards;
 }
 @keyframes moveAndChange {
 0% {
