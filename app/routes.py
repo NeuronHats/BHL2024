@@ -2,8 +2,9 @@ from app import app, db
 from app.models import User, Company, JobPosting
 from app.forms import LoginForm, RegistrationForm
 import sqlalchemy as sa
-from flask import render_template, redirect, url_for, request, flash
+from flask import jsonify, render_template, redirect, url_for, request, flash
 from flask_login import current_user, logout_user, login_user
+
 import random
 
 
@@ -59,6 +60,17 @@ def check():
         return "authed"
     return "not authed"
 
+# DOESNT WORK
+@app.route("/embed_json")
+def embed_json():
+    listings = []
+    num_of_listings = db.session.query(JobPosting).count()
+    for i in range(10):
+        random_listing = db.session.scalar(
+            sa.select(JobPosting).where(JobPosting.id == random.randint(1, num_of_listings))
+        )
+        listings.append(random_listing)
+    return jsonify(listings)
 
 @app.route("/embed")
 def embed():
