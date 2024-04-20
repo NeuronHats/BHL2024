@@ -2,56 +2,69 @@
 {% block title %}Swiping Card{% endblock %}
 {% block content %}
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+
 <style>
     .swiping-card {
         position: relative;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
+        width: 90vw;
+        max-width: 400px;
+        height: 70vh;
         background-color: #f2f2f2;
-        border-radius: 5px;
+        border-radius: 8px;
         box-shadow: 0 0 -10px rgba(0, 0, 0, 0.1);
-        height: 500px;
-        width: 350px;
-        overflow-y: scroll;
+        overflow: hidden;
+        cursor: -webkit-grab;
+        cursor: -moz-grab;
+        cursor: grab;
+        margin: auto;
     }
+
     .swiping-card::-webkit-scrollbar {
-        width: 0;
+        display: none;
     }
+
     .swiping-card img {
         width: 150px;
         height: 150px;
         border-radius: 100%;
         border: 1px solid #ccc;
+        margin: 20px auto;
     }
+
     .swiping-card h1 {
         font-size: 24px;
         font-weight: bold;
+        text-align: center;
+        margin-bottom: 20px;
     }
+
     .swiping-card section {
-        width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         padding: 10px;
         border-top: 1px solid #ccc;
+        text-align: center;
     }
+
     .buttons {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
+        text-align: center;
+        margin-top: 20px;
     }
 
     .buttons button {
-        font-size: 24px;
+        font-size: 32px;
         cursor: pointer;
         background: none;
         border: none;
         color: #333;
+        margin: 0 10px;
     }
 </style>
 
+<div class="tinder">
     <div class="swiping-card" id="swipingCard">
         <section>
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTO6McYCz5dm8b2z0mDBfi7IpSG-yXX9CnT5NVJuFwug&s" alt="">
@@ -82,51 +95,84 @@
             <h4>City</h4>
             <p>San Francisco</p>
         </section>
-        <section class="buttons" style="flex-direction: row;">
-            <button type="button" class="dislike" onclick="handleSwipe('left')"><</button>
-            <button type="button" class="like" onclick="handleSwipe('right')">></button>
-        </section>
-    </div>
-    {% if company %}
-        <!-- <section> -->
-        <!--     <img src={{ company.img }} alt=""> -->
-        <!--     <p>{{ company.name }}</p> -->
-        <!--     <p>{{ user.description }}</p> -->
-        <!---->
-        <!--     <h4>Listed Position</h4> -->
-        <!--     <p>{{ company.position }}</p> -->
-        <!---->
-        <!--     <h4>Required Experience</h4> -->
-        <!--     <p>{{ company.experience }}</p> -->
-        <!---->
-        <!--     <h4>Required Education</h4> -->
-        <!--     <p>{{ company.education }}</p> -->
-        <!---->
-        <!--     <h4>Salary</h4> -->
-        <!--     <p>{{ company.salary }}</p> -->
-        <!---->
-        <!--     <h4>City</h4> -->
-        <!--     <p>{{ company.city }}</p> -->
-        <!---->
-        <!-- </section> -->
-    {% endif %}
-    <div>
     </div>
 </div>
 
+<div class="buttons">
+    <button id="nope"><i class="fa fa-remove"></i></button>
+    <button id="love"><i class="fa fa-heart"></i></button>
+</div>
+
 <script>
-    function handleSwipe(direction) {
-    const swipingCard = document.getElementById('swipingCard');
-    if (direction === 'left') {
-        swipingCard.style.transform = 'translateX(-1000px)';
-        // Add your logic for left swipe action
-        console.log('Swiped left');
-    } else if (direction === 'right') {
-        swipingCard.style.transform = 'translateX(1000px)';
-        // Add your logic for right swipe action
-        console.log('Swiped right');
+    'use strict';
+
+    var swipingCard = document.getElementById('swipingCard');
+    var nope = document.getElementById('nope');
+    var love = document.getElementById('love');
+
+    var hammertime = new Hammer(swipingCard);
+
+    hammertime.on('pan', function (event) {
+        swipingCard.classList.add('moving');
+    });
+
+    hammertime.on('pan', function (event) {
+        if (event.deltaX === 0) return;
+        if (event.center.x === 0 && event.center.y === 0) return;
+
+        swipingCard.classList.toggle('tinder_love', event.deltaX > 0);
+        swipingCard.classList.toggle('tinder_nope', event.deltaX < 0);
+
+        var xMulti = event.deltaX * 0.03;
+        var yMulti = event.deltaY / 80;
+        var rotate = xMulti * yMulti;
+
+        swipingCard.style.transform = 'translate(' + event.deltaX + 'px, ' + event.deltaY + 'px) rotate(' + rotate + 'deg)';
+    });
+
+    hammertime.on('panend', function (event) {
+        swipingCard.classList.remove('moving');
+        swipingCard.classList.remove('tinder_love');
+        swipingCard.classList.remove('tinder_nope');
+
+        var moveOutWidth = document.body.clientWidth;
+        var keep = Math.abs(event.deltaX) < 80 || Math.abs(event.velocityX) < 0.5;
+
+        if (keep) {
+            swipingCard.style.transform = '';
+        } else {
+            var endX = Math.max(Math.abs(event.velocityX) * moveOutWidth, moveOutWidth);
+            var toX = event.deltaX > 0 ? endX : -endX;
+            var endY = Math.abs(event.velocityY) * moveOutWidth;
+            var toY = event.deltaY > 0 ? endY : -endY;
+            var xMulti = event.deltaX * 0.03;
+            var yMulti = event.deltaY / 80;
+            var rotate = xMulti * yMulti;
+
+            swipingCard.style.transform = 'translate(' + toX + 'px, ' + (toY + event.deltaY) + 'px) rotate(' + rotate + 'deg)';
+        }
+    });
+
+    function createButtonListener(love) {
+        return function (event) {
+            var moveOutWidth = document.body.clientWidth * 1.5;
+
+            if (love) {
+                swipingCard.style.transform = 'translate(' + moveOutWidth + 'px, -100px) rotate(-30deg)';
+            } else {
+                swipingCard.style.transform = 'translate(-' + moveOutWidth + 'px, -100px) rotate(30deg)';
+            }
+
+            event.preventDefault();
+        };
     }
-}
+
+    var nopeListener = createButtonListener(false);
+    var loveListener = createButtonListener(true);
+
+    nope.addEventListener('click', nopeListener);
+    love.addEventListener('click', loveListener);
 </script>
 
 {% endblock %}
+

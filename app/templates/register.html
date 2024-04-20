@@ -25,6 +25,7 @@
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
+        <p>{{ form.company_check() }} {{ form.company_check.label }}</p>
         <p>{{ form.submit() }}</p>
     </form>
 {% endblock %}
