@@ -29,4 +29,3 @@ class RegistrationForm(FlaskForm):
 class UserInfoForm(FlaskForm): 
     firstname = StringField("First name", validators=[DataRequired()])
     lastname = StringField("Last name", validators=[DataRequired()])
-    pass
