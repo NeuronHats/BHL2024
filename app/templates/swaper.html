@@ -27,7 +27,22 @@
       opacity: 0;
       transition: opacity 0.1s ease-in-out;
     }
+    h1, h2, h3 {
+        font-weight: bold;
+    }
+    .tinder section h1 {
+      text-align: center;
+      font-size: 30px;
+    }
+    .tinder section h2 {
+      text-align: center;
+      font-size: 22px;
+    }
+    .tinder section h3 {
+      text-align: center;
+      font-size: 18px;
 
+    }
     .loaded.tinder {
       opacity: 1;
     }
@@ -35,7 +50,6 @@
     .tinder--status {
       position: absolute;
       top: 50%;
-      margin-top: -30px;
       z-index: 2;
       width: 100%;
       text-align: center;
@@ -68,7 +82,7 @@
       text-align: center;
       display: flex;
       justify-content: center;
-      align-items: flex-end;
+      align-items: center;
       z-index: 1;
     }
 
@@ -76,7 +90,7 @@
       display: inline-block;
       width: 90vw;
       max-width: 400px;
-      height: 70vh;
+      height: 650px;
       background: #FFFFFF;
       padding-bottom: 40px;
       border-radius: 8px;
@@ -90,6 +104,10 @@
     .tinder--card {
       transition: none;
       cursor: grabbing;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
 
     .tinder--card img {
@@ -98,7 +116,6 @@
     }
 
     .tinder--card section {
-      margin-top: 32px;
       font-size: 32px;
       padding: 0 16px;
       pointer-events: none;
@@ -116,7 +133,12 @@
       text-align: center;
       padding-top: 20px;
     }
-
+    .tinder--card .hr-line {
+        margin-bottom: 10px;
+        width: 80%;
+        height: 3px;
+        background-color: #555;
+    }
     .tinder--buttons button {
       border-radius: 50%;
       line-height: 60px;
@@ -143,6 +165,13 @@
     .fa-remove {
       color: #CDD6DD;
     }
+    .listing-additional-info {
+        font-weight: 100;
+        align-self: center;
+        color: #555;
+        display: flex;
+        flex-direction: column;
+    }
 
 </style>
 
@@ -155,30 +184,23 @@
     <div class ="tinder--cards">
         {% for listing in listings %}
         <div class="tinder--card">
-            <section>
+            <section class="listing-main-info">
                 <img src="data:image/jpeg;base64,{{ listing.image }}" alt="">
                 <h1>{{ listing.company }}</h1>
+
+                <h3>{{ listing.title }}</h3>
+                <h2>{{ listing.lower }}zł - {{ listing.upper }}zł</h2>
+
             </section>
 
-            <section>
-                <h4>Listed Position</h4>
-                <p>{{ listing.title }}</p>
-            </section>
-
-            <section>
-                <h4>Salary Range</h4>
-                <p>{{ listing.lower }}zł - {{ listing.upper }}zł</p>
-            </section>
-
-            <section>
-                <h4>Location</h4>
-                <p>{{ listing.location }}</p>
-            </section>
-
-            <section>
-              <h4>Distance</h4>
-              <p>{{ listing.distance }}</p>
-          </section>
+            <hr class="hr-line">
+             <section class="listing-additional-info">
+                <p>🗺Location: {{ listing.location }}</p>
+                <p>🛣Distance {{ listing.distance }}</p>
+<!--maybe tech stack here-->
+                <p> 👨‍💻Tech stack: {{ listing.tech_stack }} Svelte, JS, TS, HTML, CSS, PYTHON</p>
+                <a href="#" style="text-decoration: none; font-weight: bold; font-size: 20px">Read more</a>
+              </section>
 
         </div>
         {% endfor %}
@@ -204,10 +226,11 @@
     function initCards(card, index) {
       var newCards = document.querySelectorAll('.tinder--card:not(.removed)');
 
-      {#newCards.forEach(function (card, index) {#}
-      {#  card.style.zIndex = allCards.length - index;#}
-      {#  card.style.transform = 'scale(' + (20 - index) / 20 + ') translateY(-' + 30 * index + 'px)';#}
-      {#});#}
+      newCards.forEach(function (card, index) {
+        card.style.zIndex = allCards.length - index;
+        card.style.transform = 'scale(' + (20 - index) / 20 + ') translateY(-' + 30 * index + 'px)';
+        card.style.opacity = (10 - index) / 10;
+      });
 
       tinderContainer.classList.add('loaded');
     }
@@ -224,20 +247,20 @@
         tinderContainer.classList.toggle('tinder_love', event.deltaX > 0);
         tinderContainer.classList.toggle('tinder_nope', event.deltaX < 0);
 
-        var xMulti = event.deltaX * -0.03;
-        var yMulti = Math.abs(event.deltaY) / -8;
-        var rotate = xMulti * -1;
-
-        event.target.style.transform = 'translate(' + event.deltaX + 'px, ' + yMulti + 'px) rotate(' + rotate + 'deg)';
+        var xMulti = event.deltaX * 0.03;
+        var yMulti = event.deltaY / 80;
+        var rotate = xMulti * yMulti;
+        console.log(event.target.parentElement);
+        event.target.style.transform = 'translate(' + event.deltaX + 'px, ' + event.deltaY + 'px) rotate(' + rotate + 'deg)';
 
         var keep = Math.abs(event.deltaX) < 100;
 
         if (!keep) {
             if (event.deltaX < 0) {
-                var redIntensity = Math.max((255 - Math.min(Math.abs(event.deltaX) / 5, 255)) * 1.2, 100);
+                var redIntensity = (255 - Math.min(Math.abs(event.deltaX) / 5, 255)) / 2;
                 event.target.style.background = 'rgb( 255, ' + redIntensity + ', ' + redIntensity + ')';
             } else {
-                var greenIntensity = Math.max((255 - Math.min(Math.abs(event.deltaX) / 5, 255)) * 1.2, 170);
+                var greenIntensity = (255 - Math.min(Math.abs(event.deltaX) / 5, 255));
                 event.target.style.background = 'rgb(' + greenIntensity +  ', 255, ' + greenIntensity + ')';
             }
 
@@ -254,15 +277,13 @@
         tinderContainer.classList.remove('tinder_nope');
 
         var moveOutWidth = document.body.clientWidth;
-        var keep = Math.abs(event.deltaX) < 160;
+        var keep = Math.abs(event.deltaX) < 80 || Math.abs(event.velocityX) < 0.5;
 
         event.target.classList.toggle('removed', !keep);
 
         if (keep) {
           event.target.style.transform = '';
-          event.target.style.background = 'white';
-          {#event.target.style.transition = 'transform 0.3s linear'; // Dodanie animacji CSS#}
-
+        } else {
           var endX = Math.max(Math.abs(event.velocityX) * moveOutWidth, moveOutWidth);
           var toX = event.deltaX > 0 ? endX : -endX;
           var endY = Math.abs(event.velocityY) * moveOutWidth;
@@ -309,7 +330,6 @@
 
     nope.addEventListener('click', nopeListener);
     love.addEventListener('click', loveListener);
-    }
 
 </script>
 

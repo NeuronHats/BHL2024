@@ -19,8 +19,8 @@ def index():
         "salary": "$100,000",
         "city": "San Francisco",
     }
-    # return render_template('swaper.html', company=company)
-    return render_template('base.html')
+    return render_template('swaper.html', company=company)
+    # return render_template('base.html')
 
 
 
@@ -68,11 +68,11 @@ def embed_json():
     listings = []
     num_of_listings = db.session.query(JobPosting).count()
     for i in range(10):
-        random_listing = db.session.query( 
-        JobPosting.title, 
-        JobPosting.description, 
-        JobPosting.location, 
-        JobPosting.salary_range_lower, 
+        random_listing = db.session.query(
+        JobPosting.title,
+        JobPosting.description,
+        JobPosting.location,
+        JobPosting.salary_range_lower,
         JobPosting.salary_range_upper,
         Company.name.label('company_name'),
         Company.image_b64.label('company_image')
@@ -94,12 +94,12 @@ def embed():
     listings = []
     num_of_listings = db.session.query(JobPosting).count()
     for _ in range(10):
-        random_listing = db.session.query( 
-        JobPosting.title, 
-        JobPosting.description, 
+        random_listing = db.session.query(
+        JobPosting.title,
+        JobPosting.description,
         JobPosting.location,
         JobPosting.distance,
-        JobPosting.salary_range_lower, 
+        JobPosting.salary_range_lower,
         JobPosting.salary_range_upper,
         Company.name.label('company_name'),
         Company.image_b64.label('company_image')
