@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from app import db
 from app.models import User
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, FieldList
 from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
 import sqlalchemy as sa
 
@@ -15,10 +15,11 @@ class LoginForm(FlaskForm):
 
 class RegistrationForm(FlaskForm):
     email = StringField("Email", validators=[DataRequired(), Email()])
-    password = PasswordField("Password", validators=[DataRequired()])
+    password_hash = PasswordField("Password", validators=[DataRequired()])
     confirm_password = PasswordField(
-        "Repeat Password", validators=[DataRequired(), EqualTo("password")]
+        "Repeat Password", validators=[DataRequired(), EqualTo("password_hash")]    
     )
+    company_check = BooleanField("Recruiter account")
     submit = SubmitField("Register")
 
     def validate_email(self, email):
@@ -26,7 +27,8 @@ class RegistrationForm(FlaskForm):
         if email is not None:
             raise ValidationError("Please use a different email address.")
 
-class UserInfoForm(FlaskForm): 
+
+class UserInfoForm(FlaskForm):
     firstname = StringField("First name", validators=[DataRequired()])
     lastname = StringField("Last name", validators=[DataRequired()])
-    pass
+    education_text = FieldList("Education", validators=[DataRequired()])
