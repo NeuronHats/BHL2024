@@ -16,12 +16,12 @@ class LoginForm(FlaskForm):
 class RegistrationForm(FlaskForm):
     email = StringField("Email", validators=[DataRequired(), Email()])
     password = PasswordField("Password", validators=[DataRequired()])
-    password2 = PasswordField("Repeat Password", validators=[
-                              DataRequired(), EqualTo("password")])
+    confirm_password = PasswordField(
+        "Repeat Password", validators=[DataRequired(), EqualTo("password")]
+    )
+    submit = SubmitField("Register")
 
     def validate_email(self, email):
-        email = db.session.scalar(sa.select(User).where(
-            User.email == email.data
-        ))
+        email = db.session.scalar(sa.select(User).where(User.email == email.data))
         if email is not None:
             raise ValidationError("Please use a different email address.")
