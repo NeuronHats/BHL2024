@@ -22,7 +22,34 @@ def index():
     #     "city": "San Francisco",
     # }
     # return render_template("swaper.html", company=company)
-    return render_template("index.html")
+    listings = []
+    num_of_listings = db.session.query(JobPosting).count()
+    for _ in range(10):
+        random_listing = (
+            db.session.query(
+                JobPosting.title,
+                JobPosting.description,
+                JobPosting.location,
+                JobPosting.distance,
+                JobPosting.salary_range_lower,
+                JobPosting.salary_range_upper,
+                Company.name.label("company_name"),
+                Company.image_b64.label("company_image"),
+            )
+            .join(Company, JobPosting.company_id == Company.id)
+            .where(JobPosting.id == random.randint(1, num_of_listings))
+        )
+        data = random_listing.all()
+        posting = {}
+        posting["company"] = data[0][6]
+        posting["title"] = data[0][0]
+        posting["location"] = data[0][2]
+        posting["distance"] = data[0][3]
+        posting["lower"] = data[0][4]
+        posting["upper"] = data[0][5]
+        posting["image"] = data[0][-1]
+        listings.append(posting)
+    return render_template("index.html", listings=listings)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -198,6 +225,12 @@ def embed_test():
     width = 500
     height = 700
     return render_template("embed_test.html", width=width, height=height)
+
+
+@app.route("/applications")
+def applications():
+    aplications = []
+    return render_template("aplications.html", aplications=aplications)
 
 
 @app.route("/logout")

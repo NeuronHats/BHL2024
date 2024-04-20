@@ -6,6 +6,19 @@
 - swipe left right
 
 
+# TODO:
+- [ ] applications
+- [ ] login styles
+- [ ] register styles
+- [ ] recruiter panel
+- [ ] ai sumarizer
+- [ ] main page polish
+- [ ] embed register
+- [ ] presentation
+- [ ] one pager
+- [ ] preparation for judges
+
+
 
 
 
