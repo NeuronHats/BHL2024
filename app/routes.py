@@ -27,7 +27,8 @@ def login():
         return redirect(url_for("index"))
     form = LoginForm()
     if form.validate_on_submit():
-        user = db.session.scalar(sa.select(User).where(User.email == form.email.data))
+        user = db.session.scalar(
+            sa.select(User).where(User.email == form.email.data))
         if user is None or not user.check_password(form.password_hash.data):
             flash("Invalid email or password")
             return redirect(url_for("login"))

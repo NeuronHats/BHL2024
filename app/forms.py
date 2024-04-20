@@ -47,5 +47,3 @@ class UserInfoForm(FlaskForm):
     soft_skills_text = StringField("Soft Skills")
     cv_file = FileField("Upload your resume: ", validators=[DataRequired()])
     profile_picture_file = FileField("Upload your profile picture (JPG)", validators=[DataRequired()])
-
-    
