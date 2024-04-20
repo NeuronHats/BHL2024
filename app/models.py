@@ -4,8 +4,6 @@ from app import db, login
 from typing import Optional
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
-from sqlalchemy_serializer import SerializerMixin
-from dataclasses import dataclass
 user_interests = sa.Table(
     "user_interests",
     db.metadata,
@@ -16,7 +14,7 @@ user_interests = sa.Table(
 )
 
 
-class User(UserMixin, db.Model, SerializerMixin):
+class User(UserMixin, db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
     is_company: so.Mapped[bool] = so.mapped_column(sa.Boolean, nullable=True)
     email: so.Mapped[str] = so.mapped_column(sa.String(120), index=True, unique=True)
@@ -60,7 +58,6 @@ class Company(db.Model):
     def __repr__(self) -> str:
         return f"<Company {self.name}>"
 
-@dataclass
 class JobPosting(db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
     title: so.Mapped[str] = so.mapped_column(sa.String(120), nullable=False)
