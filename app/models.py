@@ -13,7 +13,7 @@ user_interests = sa.Table('user_interests', db.metadata,
 
 class User(UserMixin, db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
-    is_company: so.Mapped[bool] = so.mapped_column(sa.Boolean)
+    is_company: so.Mapped[bool] = so.mapped_column(sa.Boolean, nullable=True)
     email: so.Mapped[str] = so.mapped_column(sa.String(120), index=True, unique=True)
     password_hash: so.Mapped[Optional[str]] = so.mapped_column(sa.String(256))
     firstname: so.Mapped[Optional[str]] = so.mapped_column(sa.String(64))
@@ -64,7 +64,7 @@ class JobPosting(db.Model):
 
     # Relationship to users interested in the job posting
     interested_users: so.Mapped[list] = so.relationship(
-        'User', secondary=user_interests, backref=so.backref('interested_job_postings', lazy='dynamic'), lazy='dynamic'
+        'User', secondary=user_interests, backref=so.backref('interested_job_postings')
     )
 
     
