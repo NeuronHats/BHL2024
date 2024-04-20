@@ -6,10 +6,15 @@ from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
-user_interests = sa.Table('user_interests', db.metadata,
-    sa.Column('user_id', sa.Integer, sa.ForeignKey('user.id'), primary_key=True),
-    sa.Column('job_posting_id', sa.Integer, sa.ForeignKey('job_posting.id'), primary_key=True)
+user_interests = sa.Table(
+    "user_interests",
+    db.metadata,
+    sa.Column("user_id", sa.Integer, sa.ForeignKey("user.id"), primary_key=True),
+    sa.Column(
+        "job_posting_id", sa.Integer, sa.ForeignKey("job_posting.id"), primary_key=True
+    ),
 )
+
 
 class User(UserMixin, db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
@@ -37,6 +42,7 @@ class User(UserMixin, db.Model):
     def __repr__(self) -> str:
         return f"<User {self.email}>"
 
+
 class Company(db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
     name: so.Mapped[str] = so.mapped_column(sa.String(128))
@@ -46,10 +52,13 @@ class Company(db.Model):
     company_size_lower: so.Mapped[int] = so.mapped_column(sa.Integer)
     company_size_higher: so.Mapped[int] = so.mapped_column(sa.Integer)
     # Relationship to job postings
-    job_postings: so.Mapped[list] = so.relationship('JobPosting', back_populates='company', cascade="all, delete-orphan")
+    job_postings: so.Mapped[list] = so.relationship(
+        "JobPosting", back_populates="company", cascade="all, delete-orphan"
+    )
 
     def __repr__(self) -> str:
         return f"<Company {self.name}>"
+
 
 class JobPosting(db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
@@ -59,15 +68,19 @@ class JobPosting(db.Model):
     salary_range_lower: so.Mapped[int] = so.mapped_column(sa.Integer)
     salary_range_upper: so.Mapped[int] = so.mapped_column(sa.Integer)
 
-    company_id: so.Mapped[int] = so.mapped_column(sa.Integer, sa.ForeignKey('company.id'))
-    company: so.Mapped[Company] = so.relationship('Company', back_populates='job_postings')
+    company_id: so.Mapped[int] = so.mapped_column(
+        sa.Integer, sa.ForeignKey("company.id")
+    )
+    company: so.Mapped[Company] = so.relationship(
+        "Company", back_populates="job_postings"
+    )
 
     # Relationship to users interested in the job posting
     interested_users: so.Mapped[list] = so.relationship(
-        'User', secondary=user_interests, backref=so.backref('interested_job_postings')
+        "User", secondary=user_interests, backref=so.backref("interested_job_postings")
     )
 
-    
+
 @login.user_loader
 def load_user(id):
     return db.session.get(User, int(id))

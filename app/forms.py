@@ -1,7 +1,14 @@
 from flask_wtf import FlaskForm
 from app import db
 from app.models import User
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, FieldList
+from wtforms import (
+    StringField,
+    PasswordField,
+    BooleanField,
+    SubmitField,
+    FieldList,
+    IntegerField,
+)
 from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
 import sqlalchemy as sa
 
@@ -17,7 +24,7 @@ class RegistrationForm(FlaskForm):
     email = StringField("Email", validators=[DataRequired(), Email()])
     password_hash = PasswordField("Password", validators=[DataRequired()])
     confirm_password = PasswordField(
-        "Repeat Password", validators=[DataRequired(), EqualTo("password_hash")]    
+        "Repeat Password", validators=[DataRequired(), EqualTo("password_hash")]
     )
     company_check = BooleanField("Recruiter account")
     submit = SubmitField("Register")
@@ -26,6 +33,15 @@ class RegistrationForm(FlaskForm):
         email = db.session.scalar(sa.select(User).where(User.email == email.data))
         if email is not None:
             raise ValidationError("Please use a different email address.")
+
+
+class NewJobListingForm(FlaskForm):
+    title = StringField("Title", validators=[DataRequired()])
+    description = StringField("Description", validators=[DataRequired()])
+    localization = StringField("Localization", validators=[DataRequired()])
+    lower_bound = IntegerField("Salary lower bound", validators=[DataRequired()])
+    higher_bound = IntegerField("Salary higher bound", validators=[DataRequired()])
+    submit = SubmitField("Post job listing")
 
 
 class UserInfoForm(FlaskForm):

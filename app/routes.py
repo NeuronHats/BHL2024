@@ -17,7 +17,8 @@ def index():
         'salary': '$100,000',
         'city': 'San Francisco'
     }
-    return render_template('swiping_card.html', company=company)
+    # return render_template('swiping-card.html', company=company)
+    return render_template('base.html')
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -41,7 +42,7 @@ def register():
         return redirect(url_for("index"))
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User(email=form.email.data)
+        user = User(email=form.email.data, is_company=form.company_check.data)
         user.set_password(form.password_hash.data)
         db.session.add(user)
         db.session.commit()
@@ -61,4 +62,3 @@ def check():
 def logout():
     logout_user()
     return redirect(url_for("index"))
->>>>>>> cce1ab954d1c4c8d683de3e5bac5fee23006f4ff
