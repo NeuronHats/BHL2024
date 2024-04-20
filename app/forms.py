@@ -60,3 +60,4 @@ class EmbedLoginForm(FlaskForm):
     confirm_password = PasswordField(
         "Repeat Password", validators=[DataRequired(), EqualTo("password_hash")]
     )
+    submit = SubmitField("Register")
