@@ -2,4 +2,131 @@
 {% block title %}Swiping Card{% endblock %}
 {% block content %}
 
+<style>
+    .swiping-card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        background-color: #f2f2f2;
+        border-radius: 5px;
+        box-shadow: 0 0 -10px rgba(0, 0, 0, 0.1);
+        height: 500px;
+        width: 350px;
+        overflow-y: scroll;
+    }
+    .swiping-card::-webkit-scrollbar {
+        width: 0;
+    }
+    .swiping-card img {
+        width: 150px;
+        height: 150px;
+        border-radius: 100%;
+        border: 1px solid #ccc;
+    }
+    .swiping-card h1 {
+        font-size: 24px;
+        font-weight: bold;
+    }
+    .swiping-card section {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        border-top: 1px solid #ccc;
+    }
+    .buttons {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .buttons button {
+        font-size: 24px;
+        cursor: pointer;
+        background: none;
+        border: none;
+        color: #333;
+    }
+</style>
+
+    <div class="swiping-card" id="swipingCard">
+        <section>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTO6McYCz5dm8b2z0mDBfi7IpSG-yXX9CnT5NVJuFwug&s" alt="">
+            <h1>Example Tech Inc.</h1>
+        </section>
+
+        <section>
+            <h4>Listed Position</h4>
+            <p>Software Engineer</p>
+        </section>
+
+        <section>
+            <h4>Required Experience</h4>
+            <p>3 years</p>
+        </section>
+
+        <section>
+            <h4>Required Education</h4>
+            <p>Bachelor's degree in Computer Science</p>
+        </section>
+
+        <section>
+            <h4>Salary</h4>
+            <p>$100,000 per year</p>
+        </section>
+
+        <section>
+            <h4>City</h4>
+            <p>San Francisco</p>
+        </section>
+        <section class="buttons" style="flex-direction: row;">
+            <button type="button" class="dislike" onclick="handleSwipe('left')"><</button>
+            <button type="button" class="like" onclick="handleSwipe('right')">></button>
+        </section>
+    </div>
+    {% if company %}
+        <!-- <section> -->
+        <!--     <img src={{ company.img }} alt=""> -->
+        <!--     <p>{{ company.name }}</p> -->
+        <!--     <p>{{ user.description }}</p> -->
+        <!---->
+        <!--     <h4>Listed Position</h4> -->
+        <!--     <p>{{ company.position }}</p> -->
+        <!---->
+        <!--     <h4>Required Experience</h4> -->
+        <!--     <p>{{ company.experience }}</p> -->
+        <!---->
+        <!--     <h4>Required Education</h4> -->
+        <!--     <p>{{ company.education }}</p> -->
+        <!---->
+        <!--     <h4>Salary</h4> -->
+        <!--     <p>{{ company.salary }}</p> -->
+        <!---->
+        <!--     <h4>City</h4> -->
+        <!--     <p>{{ company.city }}</p> -->
+        <!---->
+        <!-- </section> -->
+    {% endif %}
+    <div>
+    </div>
+</div>
+
+<script>
+    function handleSwipe(direction) {
+    const swipingCard = document.getElementById('swipingCard');
+    if (direction === 'left') {
+        swipingCard.style.transform = 'translateX(-1000px)';
+        // Add your logic for left swipe action
+        console.log('Swiped left');
+    } else if (direction === 'right') {
+        swipingCard.style.transform = 'translateX(1000px)';
+        // Add your logic for right swipe action
+        console.log('Swiped right');
+    }
+}
+</script>
+
 {% endblock %}

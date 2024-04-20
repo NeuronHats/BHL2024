@@ -6,9 +6,18 @@ from flask import render_template, redirect, url_for, request, flash
 from flask_login import current_user, logout_user, login_user
 
 
-@app.route("/")
+@app.route('/')
 def index():
-    return render_template("base.html")
+    company = {
+        'img': 'company_logo.png',
+        'name': 'Example Company',
+        'position': 'Software Engineer',
+        'experience': '5 years',
+        'education': 'Bachelor of Science in Computer Science',
+        'salary': '$100,000',
+        'city': 'San Francisco'
+    }
+    return render_template('swiping_card.html', company=company)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -52,3 +61,4 @@ def check():
 def logout():
     logout_user()
     return redirect(url_for("index"))
+>>>>>>> cce1ab954d1c4c8d683de3e5bac5fee23006f4ff
