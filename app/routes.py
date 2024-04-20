@@ -60,16 +60,24 @@ def check():
         return "authed"
     return "not authed"
 
-# DOESNT WORK
+# STILL DOESNT WORK
 @app.route("/embed_json")
 def embed_json():
     listings = []
     num_of_listings = db.session.query(JobPosting).count()
     for i in range(10):
-        random_listing = db.session.scalar(
-            sa.select(JobPosting).where(JobPosting.id == random.randint(1, num_of_listings))
-        )
-        listings.append(random_listing)
+        random_listing = db.session.query( 
+        JobPosting.title, 
+        JobPosting.description, 
+        JobPosting.location, 
+        JobPosting.salary_range_lower, 
+        JobPosting.salary_range_upper,
+        Company.name.label('company_name'),
+        Company.image_b64.label('company_image')
+        ).join(Company, JobPosting.company_id == Company.id).where(JobPosting.id == random.randint(1, num_of_listings))
+        data = random_listing.all()
+        listings.append(data)
+    print(listings )
     return jsonify(listings)
 
 @app.route("/embed")
