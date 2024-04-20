@@ -21,6 +21,3 @@ def search_keywords(keywords, text):
                 tokenized_keywords.pop(index)
 
     return found_keywords / length_of_keywords
-
-
-print(search_keywords(keywords=["Machine Learning", "Computer Vision", "Reinforcement Learning"], text="This is a bird. Machine Learning is my passion. I made a project using Computer Vision."))
