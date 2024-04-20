@@ -87,7 +87,6 @@
     }
 
     .tinder--card {
-      display: inline-block;
       width: 90vw;
       max-width: 400px;
       height: 650px;
@@ -99,16 +98,34 @@
       will-change: transform;
       transition: all 0.3s ease-in-out;
       cursor: grab;
-    }
-
-    .tinder--card {
-      transition: none;
-      cursor: grabbing;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
     }
+
+    .tinder--cards .tinder--card:last-child {
+        animation: moveAndChange 1.8s ease-in-out forwards;
+    }
+    @keyframes moveAndChange {
+    0% {
+        transform: translateX(0);
+    }
+    40% {
+         background-color: #60a18e;
+        transform: translateX(50px);
+        rotate: 15deg;
+        margin-left: 10px;
+    }
+    80% {
+        background-color: #FFACE4;
+        transform: translateX(-50px);
+        rotate: -15deg;
+        margin-right: 10px;
+        }
+    }
+
+
 
     .tinder--card img {
       max-width: 200px;

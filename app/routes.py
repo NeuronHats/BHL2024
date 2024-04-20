@@ -12,17 +12,17 @@ import random
 
 @app.route("/")
 def index():
-    company = {
-        "img": "company_logo.png",
-        "name": "Example Company",
-        "position": "Software Engineer",
-        "experience": "5 years",
-        "education": "Bachelor of Science in Computer Science",
-        "salary": "$100,000",
-        "city": "San Francisco",
-    }
-    return render_template("swaper.html", company=company)
-    # return render_template('base.html')
+    # company = {
+    #     "img": "company_logo.png",
+    #     "name": "Example Company",
+    #     "position": "Software Engineer",
+    #     "experience": "5 years",
+    #     "education": "Bachelor of Science in Computer Science",
+    #     "salary": "$100,000",
+    #     "city": "San Francisco",
+    # }
+    # return render_template("swaper.html", company=company)
+    return render_template("index.html")
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -134,6 +134,7 @@ def embed():
         listings.append(posting)
     return render_template("embed.html", listings=listings)
 
+
 @app.route("/embed_register", methods=["GET", "POST"])
 def embed_register():
     if current_user.is_authenticated:
@@ -141,8 +142,12 @@ def embed_register():
     form = EmbedRegistrationForm()
     if form.validate_on_submit():
         cv = form.cv.data
-        cv_pdf_content=cv.stream.read()
-        user = User(email=request.args.get("email"), cv_filename=cv.filename, cv_pdf_content=cv_pdf_content)
+        cv_pdf_content = cv.stream.read()
+        user = User(
+            email=request.args.get("email"),
+            cv_filename=cv.filename,
+            cv_pdf_content=cv_pdf_content,
+        )
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()

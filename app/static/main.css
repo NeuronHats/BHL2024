@@ -1,13 +1,15 @@
 body {
    padding: 0;
    margin: 0;
-   background-color: black;
    display: flex;
    flex-direction: column;
    min-height: 100vh;
    justify-content: space-between;
    overflow-x: hidden;
    align-items: center;
+   --bs-body-bg: #2F373A;
+}
+.content {
 }
 .swiping-card {
    position: relative;
