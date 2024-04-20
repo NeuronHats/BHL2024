@@ -1,24 +1,25 @@
 from app import app, db
-from app.models import User
+from app.models import User, Company, JobPosting
 from app.forms import LoginForm, RegistrationForm
 import sqlalchemy as sa
 from flask import render_template, redirect, url_for, request, flash
 from flask_login import current_user, logout_user, login_user
+import random
 
 
-@app.route('/')
+@app.route("/")
 def index():
     company = {
-        'img': 'company_logo.png',
-        'name': 'Example Company',
-        'position': 'Software Engineer',
-        'experience': '5 years',
-        'education': 'Bachelor of Science in Computer Science',
-        'salary': '$100,000',
-        'city': 'San Francisco'
+        "img": "company_logo.png",
+        "name": "Example Company",
+        "position": "Software Engineer",
+        "experience": "5 years",
+        "education": "Bachelor of Science in Computer Science",
+        "salary": "$100,000",
+        "city": "San Francisco",
     }
-    # return render_template('swiping-card.html', company=company)
-    return render_template('base.html')
+    return render_template("swiping-card.html", company=company)
+    # return render_template('base.html')
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -57,6 +58,19 @@ def check():
     if current_user.is_authenticated:
         return "authed"
     return "not authed"
+
+
+@app.route("/embed")
+def embed():
+    listings = []
+    num_of_listings = db.session.query(JobPosting).count()
+    for i in range(10):
+        random_listing = db.session.scalar(
+            sa.select(JobPosting).where(JobPosting.id == random.randint(1, num_of_listings))
+        )
+        listings.append(random_listing)
+    print(listings)
+    return render_template("embed.html", listings=listings)
 
 
 @app.route("/logout")
