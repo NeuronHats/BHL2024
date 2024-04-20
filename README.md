@@ -8,8 +8,8 @@
 
 # TODO:
 - [x] applications
-- [ ] login styles
-- [ ] register styles
+- [x] login styles
+- [x] register styles
 - [x] recruiter panel
 - [x] main page if no cards, show text "no more cards"
 - [x] ai sumarizer
@@ -21,6 +21,7 @@
 - [ ] preparation for judges
 - [ ] paid swipes (hehe)
 - [ ] main instead of menu, home page
+- [ ] register "upload your CV" text
 
 
 
