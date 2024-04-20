@@ -3,6 +3,6 @@ import sqlalchemy as sa
 from flask import render_template, redirect, url_for, request
 
 
-@app.route("/")
+@app.route('/')
 def index():
-    return render_template("base.html")
+    return render_template('swiping-card.html')

@@ -4,14 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
-    <link href="css/style.css" rel="stylesheet">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="static/main.css" rel="stylesheet">
 </head>
 
 <body>
-    {% block header %}{% endblock %}
-    {% block content %}{% endblock %}
-    {% block footer %}{% endblock %}
+
+    {% include 'navbar.html' %}
+
+    {% include 'swiping-card.html' %}
+    {% include 'footer.html' %}
 </body>
 
 </html>

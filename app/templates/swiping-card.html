@@ -2,4 +2,44 @@
 {% block title %}Swiping Card{% endblock %}
 {% block content %}
 
+<style>
+
+    .swiping-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+</style>
+
+<div class="swiping-card">
+    <p>Company Name</p>
+        <!-- <section> -->
+        <!--     <img src={{ company.img }} alt=""> -->
+        <!--     <p>{{ company.name }}</p> -->
+        <!--     <!-- <p>{{ user.description }}</p> --> -->
+        <!---->
+        <!--     <h4>Listed Position</h4> -->
+        <!--     <p>{{ company.position }}</p> -->
+        <!---->
+        <!--     <h4>Required Experience</h4> -->
+        <!--     <p>{{ company.experience }}</p> -->
+        <!---->
+        <!--     <h4>Required Education</h4> -->
+        <!--     <p>{{ company.education }}</p> -->
+        <!---->
+        <!--     <h4>Salary</h4> -->
+        <!--     <p>{{ company.salary }}</p> -->
+        <!---->
+        <!--     <h4>City</h4> -->
+        <!--     <p>{{ company.city }}</p> -->
+        <!---->
+        <!-- </section> -->
+    <div>
+        <button type="button" class="like">Like</button>
+        <button type="button" class="dislike">Dislike</button>
+    </div>
+</div>
+
 {% endblock %}
