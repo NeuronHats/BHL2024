@@ -4,6 +4,19 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
 
+<style>
+
+#no-jobs-left {
+    box-sizing: border-box;
+    border-radius: 5px;
+    font-size: 30px;
+    text-align: center;
+    color: white;
+    width: 220px;
+}
+
+</style>
+
 <div class="tinder">
     <div class="tinder--status">
         <i class="fa fa-remove"></i>
@@ -32,7 +45,9 @@
               </section>
 
         </div>
+
         {% endfor %}
+        <h2 id="no-jobs-left"> No more job offers to show</h2>
     </div>
 
 
