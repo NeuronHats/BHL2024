@@ -108,13 +108,11 @@
           event.target.classList.toggle('removed', !keep);
 
           if (keep) {
-
               event.target.style.background = 'white';
               event.target.style.transition = 'transform 0.05s linear'; // Dodanie animacji CSS
               event.target.style.transform = '';
 
           } else {
-
               var endX = Math.max(Math.abs(event.velocityX) * moveOutWidth, moveOutWidth);
               var toX = event.deltaX > 0 ? endX : -endX;
               var endY = Math.abs(event.velocityY) * moveOutWidth;
@@ -122,9 +120,7 @@
               var xMulti = event.deltaX * 0.03;
               var yMulti = event.deltaY / 80;
               var rotate = xMulti * yMulti;
-
               event.target.style.transition = 'transform 0.3s ease-in-out'; // Dodanie animacji CSS
-
               setTimeout(function () {
                   event.target.style.transform = 'translate(' + toX + 'px, ' + (toY + event.deltaY) + 'px) rotate(' + rotate + 'deg)';
               }, 0); // Opóźnienie transformacji
