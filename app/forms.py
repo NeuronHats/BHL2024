@@ -15,9 +15,9 @@ class LoginForm(FlaskForm):
 
 class RegistrationForm(FlaskForm):
     email = StringField("Email", validators=[DataRequired(), Email()])
-    password = PasswordField("Password", validators=[DataRequired()])
+    password_hash = PasswordField("Password", validators=[DataRequired()])
     confirm_password = PasswordField(
-        "Repeat Password", validators=[DataRequired(), EqualTo("password")]
+        "Repeat Password", validators=[DataRequired(), EqualTo("password_hash")]
     )
     submit = SubmitField("Register")
 
@@ -26,6 +26,7 @@ class RegistrationForm(FlaskForm):
         if email is not None:
             raise ValidationError("Please use a different email address.")
 
-class UserInfoForm(FlaskForm): 
+
+class UserInfoForm(FlaskForm):
     firstname = StringField("First name", validators=[DataRequired()])
     lastname = StringField("Last name", validators=[DataRequired()])
