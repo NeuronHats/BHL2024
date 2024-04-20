@@ -1,4 +1,5 @@
 from flask_wtf import FlaskForm
+from flask_wtf.file import FileField
 from app import db
 from app.models import User
 from wtforms import (
@@ -6,7 +7,6 @@ from wtforms import (
     PasswordField,
     BooleanField,
     SubmitField,
-    FileField,
     IntegerField,
 )
 from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
@@ -26,6 +26,7 @@ class RegistrationForm(FlaskForm):
     confirm_password = PasswordField(
         "Repeat Password", validators=[DataRequired(), EqualTo("password_hash")]
     )
+    cv = FileField("Upload your resume (applicants only)")
     company_check = BooleanField("Recruiter account")
     submit = SubmitField("Register")
 
@@ -55,9 +56,10 @@ class UserInfoForm(FlaskForm):
     cv_file = FileField("Upload your resume: ", validators=[DataRequired()])
     profile_picture_file = FileField("Upload your profile picture (JPG)", validators=[DataRequired()])
 
-class EmbedLoginForm(FlaskForm):
-    password_hash = PasswordField("Password", validators=[DataRequired()])
+class EmbedRegistrationForm(FlaskForm):
+    password = PasswordField("Password", validators=[DataRequired()])
     confirm_password = PasswordField(
         "Repeat Password", validators=[DataRequired(), EqualTo("password_hash")]
     )
+    cv = FileField("Upload your resume (applicants only)")
     submit = SubmitField("Register")
