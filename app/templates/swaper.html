@@ -93,7 +93,7 @@
     }
 
     .tinder--card img {
-      max-width: 100%;
+      max-width: 200px;
       pointer-events: none;
     }
 
@@ -153,131 +153,35 @@
     </div>
 
     <div class ="tinder--cards">
-
+        {% for listing in listings %}
         <div class="tinder--card">
             <section>
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTO6McYCz5dm8b2z0mDBfi7IpSG-yXX9CnT5NVJuFwug&s" alt="">
-                <h1>Example Tech Inc.</h1>
+                <img src="data:image/jpeg;base64,{{ listing.image }}" alt="">
+                <h1>{{ listing.company }}</h1>
             </section>
 
             <section>
                 <h4>Listed Position</h4>
-                <p>Software Engineer</p>
+                <p>{{ listing.title }}</p>
             </section>
 
             <section>
-                <h4>Required Experience</h4>
-                <p>3 years</p>
+                <h4>Salary Range</h4>
+                <p>{{ listing.lower }}zł - {{ listing.upper }}zł</p>
             </section>
 
             <section>
-                <h4>Required Education</h4>
-                <p>Bachelor's degree in Computer Science</p>
+                <h4>Location</h4>
+                <p>{{ listing.location }}</p>
             </section>
 
             <section>
-                <h4>Salary</h4>
-                <p>$100,000 per year</p>
-            </section>
+              <h4>Distance</h4>
+              <p>{{ listing.distance }}</p>
+          </section>
 
-            <section>
-                <h4>City</h4>
-                <p>San Francisco</p>
-            </section>
         </div>
-        <div class="tinder--card">
-            <section>
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTO6McYCz5dm8b2z0mDBfi7IpSG-yXX9CnT5NVJuFwug&s" alt="">
-                <h1>Example Tech Inc.</h1>
-            </section>
-
-            <section>
-                <h4>Listed Position</h4>
-                <p>Software Engineer</p>
-            </section>
-
-            <section>
-                <h4>Required Experience</h4>
-                <p>3 years</p>
-            </section>
-
-            <section>
-                <h4>Required Education</h4>
-                <p>Bachelor's degree in Computer Science</p>
-            </section>
-
-            <section>
-                <h4>Salary</h4>
-                <p>$100,000 per year</p>
-            </section>
-
-            <section>
-                <h4>City</h4>
-                <p>San Francisco</p>
-            </section>
-        </div>
-        <div class="tinder--card">
-            <section>
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTO6McYCz5dm8b2z0mDBfi7IpSG-yXX9CnT5NVJuFwug&s" alt="">
-                <h1>Example Tech Inc.</h1>
-            </section>
-
-            <section>
-                <h4>Listed Position</h4>
-                <p>Software Engineer</p>
-            </section>
-
-            <section>
-                <h4>Required Experience</h4>
-                <p>3 years</p>
-            </section>
-
-            <section>
-                <h4>Required Education</h4>
-                <p>Bachelor's degree in Computer Science</p>
-            </section>
-
-            <section>
-                <h4>Salary</h4>
-                <p>$100,000 per year</p>
-            </section>
-
-            <section>
-                <h4>City</h4>
-                <p>San Francisco</p>
-            </section>
-        </div>
-        <div class="tinder--card">
-            <section>
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTO6McYCz5dm8b2z0mDBfi7IpSG-yXX9CnT5NVJuFwug&s" alt="">
-                <h1>Example Tech Inc.</h1>
-            </section>
-
-            <section>
-                <h4>Listed Position</h4>
-                <p>Software Engineer</p>
-            </section>
-
-            <section>
-                <h4>Required Experience</h4>
-                <p>3 years</p>
-            </section>
-
-            <section>
-                <h4>Required Education</h4>
-                <p>Bachelor's degree in Computer Science</p>
-            </section>
-
-            <section>
-                <h4>Salary</h4>
-                <p>$100,000 per year</p>
-            </section>
-
-            <section>
-                <h4>City</h4>
-                <p>San Francisco</p>
-            </section>
-        </div>
+        {% endfor %}
     </div>
 
 
