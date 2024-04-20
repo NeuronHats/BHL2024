@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from app import db
 from app.models import User
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, FieldList
 from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
 import sqlalchemy as sa
 
@@ -29,3 +29,4 @@ class RegistrationForm(FlaskForm):
 class UserInfoForm(FlaskForm): 
     firstname = StringField("First name", validators=[DataRequired()])
     lastname = StringField("Last name", validators=[DataRequired()])
+    education_text = FieldList("Education", validators=[DataRequired()])
