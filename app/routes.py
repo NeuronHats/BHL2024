@@ -8,10 +8,16 @@ from flask_login import current_user, logout_user, login_user
 
 @app.route('/')
 def index():
-<<<<<<< HEAD
-    return render_template('swiping-card.html')
-=======
-    return render_template("base.html")
+    company = {
+        'img': 'company_logo.png',
+        'name': 'Example Company',
+        'position': 'Software Engineer',
+        'experience': '5 years',
+        'education': 'Bachelor of Science in Computer Science',
+        'salary': '$100,000',
+        'city': 'San Francisco'
+    }
+    return render_template('swiping_card.html', company=company)
 
 
 @app.route("/login", methods=["GET", "POST"])
