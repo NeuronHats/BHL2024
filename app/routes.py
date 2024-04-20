@@ -1,7 +1,9 @@
 from app import app, db
+from app.AI import keywords
 from app.models import User, Company, JobPosting
 from app.forms import LoginForm, RegistrationForm, EmbedRegistrationForm
 import sqlalchemy as sa
+from sqlalchemy.orm import joinedload
 from flask import jsonify, render_template, redirect, url_for, request, flash
 from flask_login import current_user, logout_user, login_user
 
@@ -149,6 +151,42 @@ def embed_register():
         return redirect(url_for("login"))
     return render_template("embed_register.html", title="Register", form=form)
 
+@app.route('/express-interest')
+def express_interest():
+    print(int(request.args.get("userid")))
+    print(int(request.args.get("jobid")))
+    job = JobPosting.query.get(int(request.args.get("jobid")))
+    user = User.query.get(int(request.args.get("userid")))
+    
+    if not job or not user:
+        return jsonify({'error': 'Invalid job or user ID'}), 404
+
+    # Check if the user already expressed interest
+    # Add user to job's interested users
+    job.interested_users.append(user)
+    db.session.commit()
+
+    return jsonify({'message': 'Interest in job offer registered successfully'}), 200
+
+
+@app.route("/recruiter")
+def recruiter():
+    job_postings = JobPosting.query.filter_by(company_id=2).options(
+        joinedload(JobPosting.interested_users)
+    ).all()
+    results = []
+    for job in job_postings:
+        print(job.__dict__)
+        job_data = {
+            'job_title': job.title,
+            'email': job.interested_users.email,
+            'cv_filename': job.interested_users.cv_filename,
+            'cv_pdf_data': job.interested_users.cv_pdf_content
+        }
+        results.append(job_data)
+
+    # Return the data as JSON, adjust if you want to render a template
+    return jsonify(results)
 
 @app.route("/embed_test")
 def embed_test():
