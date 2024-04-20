@@ -120,13 +120,15 @@ def embed():
         listings.append(posting)
     return render_template("embed.html", listings=listings)
 
-@app.route("/embed_register")
+@app.route("/embed_register", methods=["GET", "POST"])
 def embed_register():
     if current_user.is_authenticated:
         return redirect(url_for("index"))
     form = EmbedRegistrationForm()
     if form.validate_on_submit():
-        user = User(email=request.args.get("email"))
+        cv = form.cv.data
+        cv_pdf_content=cv.stream.read()
+        user = User(email=request.args.get("email"), cv_filename=cv.filename, cv_pdf_content=cv_pdf_content)
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()

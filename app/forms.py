@@ -59,7 +59,7 @@ class UserInfoForm(FlaskForm):
 class EmbedRegistrationForm(FlaskForm):
     password = PasswordField("Password", validators=[DataRequired()])
     confirm_password = PasswordField(
-        "Repeat Password", validators=[DataRequired(), EqualTo("password_hash")]
+        "Repeat Password", validators=[DataRequired(), EqualTo("password")]
     )
     cv = FileField("Upload your resume (applicants only)")
     submit = SubmitField("Register")
