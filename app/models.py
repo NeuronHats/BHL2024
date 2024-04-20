@@ -15,7 +15,10 @@ class User(UserMixin, db.Model):
     experience_years: so.Mapped[int] = so.mapped_column(sa.Integer, default=0)
     technologies_text: so.Mapped[str] = so.mapped_column(sa.String(512), default="")
     soft_skills_text: so.Mapped[str] = so.mapped_column(sa.String(512), default="")
-
+    cv_filename: so.Mapped[str] = so.mapped_column(sa.String(64))
+    cv_pdf_content: so.Mapped[bytes] = so.mapped_column(sa.LargeBinary)
+    profile_picture_bytes: so.Mapped[bytes] = so.mapped(sa.LargeBinary)
+    
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
     
@@ -24,7 +27,8 @@ class User(UserMixin, db.Model):
     
     def __repr__(self) -> str:
         return f"<User {self.username}>"
-    
+
+
 @login.user_loader
 def load_user(id):
     return db.session.get(User, int(id))
