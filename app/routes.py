@@ -17,7 +17,7 @@ def index():
         'salary': '$100,000',
         'city': 'San Francisco'
     }
-    # return render_template('swiping-card.html', company=company)
+    # return render_template('swaper.html', company=company)
     return render_template('base.html')
 
 

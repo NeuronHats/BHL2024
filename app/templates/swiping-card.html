@@ -5,6 +5,22 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
 
 <style>
+    *, *:before, *:after {
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+    }
+
+    .tinder--cards {
+      flex-grow: 1;
+      padding-top: 40px;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      z-index: 1;
+    }
+
     .swiping-card {
         position: relative;
         width: 90vw;
@@ -62,40 +78,81 @@
         color: #333;
         margin: 0 10px;
     }
+    .fa-heart {
+      color: #FFACE4;
+    }
+
+    .fa-remove {
+      color: #CDD6DD;
+    }
 </style>
 
 <div class="tinder">
-    <div class="swiping-card" id="swipingCard">
-        <section>
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTO6McYCz5dm8b2z0mDBfi7IpSG-yXX9CnT5NVJuFwug&s" alt="">
-            <h1>Example Tech Inc.</h1>
-        </section>
+    <div class ="tinder--cards">
+            <div class="swiping-card" id="swipingCard">
+            <section>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTO6McYCz5dm8b2z0mDBfi7IpSG-yXX9CnT5NVJuFwug&s" alt="">
+                <h1>Example Tech Inc.</h1>
+            </section>
 
-        <section>
-            <h4>Listed Position</h4>
-            <p>Software Engineer</p>
-        </section>
+            <section>
+                <h4>Listed Position</h4>
+                <p>Software Engineer</p>
+            </section>
 
-        <section>
-            <h4>Required Experience</h4>
-            <p>3 years</p>
-        </section>
+            <section>
+                <h4>Required Experience</h4>
+                <p>3 years</p>
+            </section>
 
-        <section>
-            <h4>Required Education</h4>
-            <p>Bachelor's degree in Computer Science</p>
-        </section>
+            <section>
+                <h4>Required Education</h4>
+                <p>Bachelor's degree in Computer Science</p>
+            </section>
 
-        <section>
-            <h4>Salary</h4>
-            <p>$100,000 per year</p>
-        </section>
+            <section>
+                <h4>Salary</h4>
+                <p>$100,000 per year</p>
+            </section>
 
-        <section>
-            <h4>City</h4>
-            <p>San Francisco</p>
-        </section>
+            <section>
+                <h4>City</h4>
+                <p>San Francisco</p>
+            </section>
+        </div>
+        <div class="swiping-card" id="swipingCard">
+            <section>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTO6McYCz5dm8b2z0mDBfi7IpSG-yXX9CnT5NVJuFwug&s" alt="">
+                <h1>Example Tech Inc.</h1>
+            </section>
+
+            <section>
+                <h4>Listed Position</h4>
+                <p>Software Engineer</p>
+            </section>
+
+            <section>
+                <h4>Required Experience</h4>
+                <p>3 years</p>
+            </section>
+
+            <section>
+                <h4>Required Education</h4>
+                <p>Bachelor's degree in Computer Science</p>
+            </section>
+
+            <section>
+                <h4>Salary</h4>
+                <p>$100,000 per year</p>
+            </section>
+
+            <section>
+                <h4>City</h4>
+                <p>San Francisco</p>
+            </section>
+        </div>
     </div>
+
 </div>
 
 <div class="buttons">
@@ -128,6 +185,21 @@
         var rotate = xMulti * yMulti;
 
         swipingCard.style.transform = 'translate(' + event.deltaX + 'px, ' + event.deltaY + 'px) rotate(' + rotate + 'deg)';
+
+        var keep = Math.abs(event.deltaX) < 100;
+
+        if (!keep) {
+            if (event.deltaX < 0) {
+                var redIntensity = (255 - Math.min(Math.abs(event.deltaX) / 5, 255)) / 2;
+                swipingCard.style.background = 'rgb( 255, ' + redIntensity + ', ' + redIntensity + ')';
+            } else {
+                var greenIntensity = (255 - Math.min(Math.abs(event.deltaX) / 5, 255));
+                swipingCard.style.background = 'rgb(' + greenIntensity +  ', 255, ' + greenIntensity + ')';
+            }
+
+        } else {
+            swipingCard.style.background = 'white';
+        }
     });
 
     hammertime.on('panend', function (event) {
@@ -136,10 +208,11 @@
         swipingCard.classList.remove('tinder_nope');
 
         var moveOutWidth = document.body.clientWidth;
-        var keep = Math.abs(event.deltaX) < 80 || Math.abs(event.velocityX) < 0.5;
+        var keep = Math.abs(event.deltaX) < 100 || Math.abs(event.velocityX) < 0.5;
 
         if (keep) {
             swipingCard.style.transform = '';
+            swipingCard.style.background = "white";
         } else {
             var endX = Math.max(Math.abs(event.velocityX) * moveOutWidth, moveOutWidth);
             var toX = event.deltaX > 0 ? endX : -endX;
@@ -149,7 +222,13 @@
             var yMulti = event.deltaY / 80;
             var rotate = xMulti * yMulti;
 
-            swipingCard.style.transform = 'translate(' + toX + 'px, ' + (toY + event.deltaY) + 'px) rotate(' + rotate + 'deg)';
+            swipingCard.style.transition = 'transform 0.3s ease-in-out'; // Dodanie animacji CSS
+
+            setTimeout(function () {
+                swipingCard.style.transform = 'translate(' + toX + 'px, ' + (toY + event.deltaY) + 'px) rotate(' + rotate + 'deg)';
+            }, 0); // Opóźnienie transformacji
+
+
         }
     });
 
