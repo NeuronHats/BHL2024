@@ -104,21 +104,21 @@
       align-items: center;
     }
 
-    .tinder--cards .tinder--card:last-child {
-        animation: moveAndChange 1.8s ease-in-out forwards;
+    .tinder--cards .tinder--card:first-child {
+        animation: moveAndChange 2.1s ease-in-out forwards;
     }
     @keyframes moveAndChange {
     0% {
         transform: translateX(0);
     }
     40% {
-         background-color: #60a18e;
+        background-color: rgb(140, 255, 140);
         transform: translateX(50px);
         rotate: 15deg;
         margin-left: 10px;
     }
     80% {
-        background-color: #FFACE4;
+        background-color: rgb(255, 120, 120);
         transform: translateX(-50px);
         rotate: -15deg;
         margin-right: 10px;
@@ -243,8 +243,10 @@
 
     function initCards(card, index) {
       var newCards = document.querySelectorAll('.tinder--card:not(.removed)');
-
-
+      newCards.forEach(function (card, index) {
+          card.style.zIndex = allCards.length - index;
+          card.style.transform = 'scale(' + (20 - index) / 20 + ') translateY(-' + 30 * index + 'px)';
+      });
       tinderContainer.classList.add('loaded');
     }
 
@@ -264,7 +266,7 @@
         var yMulti = Math.abs(event.deltaY) / -8;
         var rotate = xMulti * -1;
 
-        event.target.style.transform = 'translate(' + event.deltaX + 'px, ' + yMulti + 'px) rotate(' + rotate + 'deg)';
+        event.target.style.transform = 'translate(' + event.deltaX + 'px, ' + 0 + 'px) rotate(' + rotate + 'deg)';
 
         var keep = Math.abs(event.deltaX) < 100;
 
@@ -297,7 +299,7 @@
           if (keep) {
 
               event.target.style.background = 'white';
-              event.target.style.transition = 'transform 0.1s linear'; // Dodanie animacji CSS
+              event.target.style.transition = 'transform 0.05s linear'; // Dodanie animacji CSS
               event.target.style.transform = '';
 
           } else {
