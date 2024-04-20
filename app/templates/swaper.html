@@ -311,6 +311,22 @@
 
               var endX = Math.max(Math.abs(event.velocityX) * moveOutWidth, moveOutWidth);
              var toX = event.deltaX > 0 ? endX : -endX;
+
+          var moveOutWidth = document.body.clientWidth;
+          var keep = Math.abs(event.deltaX) < 320;
+
+          event.target.classList.toggle('removed', !keep);
+
+          if (keep) {
+
+              event.target.style.background = 'white';
+              event.target.style.transition = 'transform 0.1s linear'; // Dodanie animacji CSS
+              event.target.style.transform = '';
+
+          } else {
+
+              var endX = Math.max(Math.abs(event.velocityX) * moveOutWidth, moveOutWidth);
+              var toX = event.deltaX > 0 ? endX : -endX;
               var endY = Math.abs(event.velocityY) * moveOutWidth;
               var toY = event.deltaY > 0 ? endY : -endY;
               var xMulti = event.deltaX * 0.03;
@@ -356,10 +372,6 @@
 
     nope.addEventListener('click', nopeListener);
     love.addEventListener('click', loveListener);
-
-
-
-
 
 </script>
 
