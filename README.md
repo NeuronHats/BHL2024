@@ -5,3 +5,34 @@
 - dodawanie oferty przez pracodawce
 - swipe left right
 
+
+
+
+
+
+# TMP
+
+        <p>
+            {{ form.education_text.label }}<br>
+            {{ form.education_text(size=32) }}
+        </p>
+        <p>
+            {{ form.education_level.label }}<br>
+            {{ form.education_level(size=32) }}
+        </p>
+        <p>
+            {{ form.experience_text.label }}<br>
+            {{ form.experience_text(size=32) }}
+        </p>
+        <p>
+            {{ form.experience_years.label }}<br>
+            {{ form.experience_years(size=32) }}
+        </p>
+        <p>
+            {{ form.technologies_text.label }}<br>
+            {{ form.technologies_text(size=32) }}
+        </p>
+        <p>
+            {{ form.soft_skills_text.label }}<br>
+            {{ form.soft_skills_text(size=32) }}
+        </p>

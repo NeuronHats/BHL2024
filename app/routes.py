@@ -18,10 +18,10 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = db.session.scalar(
-            sa.select(User).where(User.username == form.username.data)
+            sa.select(User).where(User.email == form.email.data)
         )
-        if user is None or not user.check_password(form.password.data):
-            flash("Invalid username or password")
+        if user is None or not user.check_password(form.password_hash.data):
+            flash("Invalid email or password")
             return redirect(url_for("login"))
         login_user(user, remember=form.remember_me.data)
         return redirect(url_for("index"))
