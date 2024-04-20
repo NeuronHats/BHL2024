@@ -4,7 +4,7 @@
         "builder": "NIXPACKS"
     },
     "deploy": {
-        "startCommand": "python -m spacy download en_core_web_lg gunicorn app:app",
+        "startCommand": "python -m spacy download en_core_web_lg ; gunicorn app:app",
         "restartPolicyType": "ON_FAILURE",
         "restartPolicyMaxRetries": 10
     }
