@@ -14,6 +14,7 @@ import openai
 
 openai.api_key = os.getenv("OPENAI_KEY", "")
 
+
 @app.route("/")
 def index():
     # company = {
@@ -187,42 +188,44 @@ def embed_register():
         return redirect(url_for("login"))
     return render_template("embed_register.html", title="Register", form=form)
 
-@app.route('/express-interest')
+
+@app.route("/express-interest")
 def express_interest():
     print(int(request.args.get("userid")))
     print(int(request.args.get("jobid")))
     job = JobPosting.query.get(int(request.args.get("jobid")))
     user = User.query.get(int(request.args.get("userid")))
-    
+
     if not job or not user:
-        return jsonify({'error': 'Invalid job or user ID'}), 404
+        return jsonify({"error": "Invalid job or user ID"}), 404
 
     # Check if the user already expressed interest
     # Add user to job's interested users
     job.interested_users.append(user)
     db.session.commit()
 
-    return jsonify({'message': 'Interest in job offer registered successfully'}), 200
-
+    return jsonify({"message": "Interest in job offer registered successfully"}), 200
 
 
 @app.route("/recruiter")
 def recruiter():
-    job_postings = JobPosting.query.filter_by(company_id=2).options(
-        joinedload(JobPosting.interested_users)
-    ).all()
+    job_postings = (
+        JobPosting.query.filter_by(company_id=2)
+        .options(joinedload(JobPosting.interested_users))
+        .all()
+    )
     results = []
     for job in job_postings:
         job_data = {
-            'job_title': job.title,
-            'email': job.interested_users.email,
-            'cv_filename': job.interested_users.cv_filename,
-            'cv_pdf_data': job.interested_users.cv_pdf_content,
-            'keywords': job.keywords.split(' ')
+            "job_title": job.title,
+            "email": job.interested_users.email,
+            "cv_filename": job.interested_users.cv_filename,
+            "cv_pdf_data": job.interested_users.cv_pdf_content,
+            "keywords": job.keywords.split(" "),
         }
         pdf_io = io.BytesIO(job_data["cv_pdf_data"])
         text = PdfReader(pdf_io).pages[0].extract_text()
-        job_data['score'] = keywords.search_keywords(job_data['keywords'], text)
+        job_data["score"] = keywords.search_keywords(job_data["keywords"], text)
         summary = openai.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[{"role": "user", "content": f"You are given text from the CV of the candidate for the position of {job.title}. Keywords for this position are: {job.keywords}. Summarize it, and based on the content, provide recommendation (of lack there of). Be quite harsh on your judgements, and elaborate on them, but not too much. Your output will server as aid for the recruiter. DO NOT print any markdown. Pay more attention to listed technical skills, not for about me section. Here is text to analyze: {text}"}]
@@ -232,6 +235,7 @@ def recruiter():
 
     # Return the data as JSON, adjust if you want to render a template
     return render_template("recruiter.html", results=results)
+
 
 @app.route("/embed_test")
 def embed_test():

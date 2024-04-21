@@ -1,4 +1,5 @@
 # Tinder do pracy
+# Jobber
 
 - parsowanie PDF, summary AI dla pracodacy, auto wypelnianie formularza o szukanej pracy
 - panel pracownika i pracodawcy
@@ -13,15 +14,16 @@
 - [x] recruiter panel
 - [x] main page if no cards, show text "no more cards"
 - [x] ai sumarizer
-- [ ] message "applied" when you swipe right
+- [x] message "applied" when you swipe right
+- [x] main instead of menu, home page
+- [x] register "upload your CV" text
 - [ ] main page polish (buttons, more dense text)
 - [ ] embed register
 - [ ] presentation
 - [ ] one pager
 - [ ] preparation for judges
 - [ ] paid swipes (hehe)
-- [ ] main instead of menu, home page
-- [ ] register "upload your CV" text
+- [ ] cache openai invokations
 
 
 

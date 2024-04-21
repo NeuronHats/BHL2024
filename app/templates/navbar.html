@@ -39,7 +39,7 @@
 <body>
     <nav>
       <ul>
-        <img src="/static/menu.svg" alt="">
+        <a href="/"><img src="/static/home.svg" alt=""></a>
         {% if current_user.is_authenticated %}
           <li><a href="/applications">My applications</a></li>
           <li><a href="{{ url_for('logout') }}">Log Out</a></li>
