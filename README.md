@@ -16,5 +16,6 @@ Job-Up to aplikacja mająca na celu ułatwienie procesu rekrutacyjnego poprzez w
 * ![Python](https://img.icons8.com/color/48/000000/python.png) Python
 * ![HTML/CSS/JS](https://img.icons8.com/color/48/000000/html-5--v1.png) HTML/CSS/JS
 * ![Bootstrap](https://img.icons8.com/color/48/000000/bootstrap.png) Bootstrap
+* ![SQLite](https://img.icons8.com/color/48/000000/sql.png) SQLite
 
 
