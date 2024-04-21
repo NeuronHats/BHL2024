@@ -53,6 +53,7 @@ def index():
         posting["lower"] = data[0][4]
         posting["upper"] = data[0][5]
         posting["image"] = data[0][-1]
+        posting["mode"] = data[0][1]
         listings.append(posting)
     return render_template("index.html", listings=listings)
 
@@ -163,6 +164,7 @@ def embed():
         posting["lower"] = data[0][4]
         posting["upper"] = data[0][5]
         posting["image"] = data[0][-1]
+        posting["mode"] = data[0][1]
         listings.append(posting)
     return render_template("embed.html", listings=listings)
 
@@ -256,7 +258,7 @@ def download(filename):
 @app.route("/embed_test")
 def embed_test():
     width = 500
-    height = 700
+    height = 900
     return render_template("embed_test.html", width=width, height=height)
 
 
