@@ -151,7 +151,7 @@ h1, h2, h3 {
   height: 650px;
   background: #FFFFFF;
   padding-bottom: 40px;
-  border-radius: 8px;
+  border-radius: 10px;
   overflow: hidden;
   position: absolute;
   will-change: transform;
@@ -243,10 +243,10 @@ h1, h2, h3 {
   color: #CDD6DD;
 }
 .listing-additional-info {
-    font-weight: 100;
+    font-weight: 300;
     align-self: center;
     color: #555;
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
 }
 
