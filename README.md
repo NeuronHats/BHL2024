@@ -19,7 +19,7 @@
 - [x] register "upload your CV" text
 - [ ] embed register
 - [ ] recruiter styling, ai button
-- [ ] main page polish (arrows (swipe left to reject, swipe right to apply), more dense text)
+- [x] main page polish (arrows (swipe left to reject, swipe right to apply), more dense text)
 - [ ] presentation
 - [ ] one pager
 - [ ] preparation for judges
