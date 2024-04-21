@@ -28,6 +28,11 @@
     overflow: hidden;
     transition: opacity 0.3s ease-in-out;
 }
+#falling_window_form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 </style>
 
@@ -74,10 +79,10 @@
 
 
     <div id="falling_window">
-        <p>
-        You need to register to apply more
-        </p>
-        <form method="post">
+        <h1>
+            Thank you for your interest. To apply more you need to register first.
+        </h1>
+        <form method="get" id="falling-window-form" action="embed_register?email=document.getElementById('email').value">
             <label for="email">Type in your email address</label>
             <input type="email" name="email" id="email">
             <button type="submit">Submit</button>
@@ -91,10 +96,10 @@
 </div>
 
     <div id="falling_window">
-        <p>
-        You need to register to apply more
-        </p>
-        <form method="post">
+        <h1>
+            You need to register to apply more
+        </h1>
+        <form method="post" id="falling-window-form">
             <label for="email">Type in your email address</label>
             <input type="email" name="email" id="email">
             <button type="submit">Submit</button>
