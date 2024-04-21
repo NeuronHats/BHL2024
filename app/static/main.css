@@ -262,10 +262,16 @@ label[for=password_hash] {
 input#password_hash {
     padding: 10px;
 }
+input#password {
+    padding: 10px;
+}
 label[for=remember_me] {
     color: #ccc;
 }
 label[for=confirm_password] {
+    color: #ccc;
+}
+label[for=password] {
     color: #ccc;
 }
 input#confirm_password {
