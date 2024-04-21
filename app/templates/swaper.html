@@ -23,7 +23,8 @@
         <i class="fa fa-heart"></i>
     </div>
 
-    <div class ="tinder--cards">
+    <div class="tinder--cards">
+
         {% for listing in listings %}
         <div class="tinder--card">
             <section class="listing-main-info">
@@ -47,7 +48,11 @@
         </div>
 
         {% endfor %}
+        <div class="message" id="message">APPLIED</div>
         <h2 id="no-jobs-left"> No more job offers to show</h2>
+
+
+
     </div>
 
 
@@ -61,7 +66,7 @@
 <script>
     'use strict';
 
-
+    var message = document.getElementById("message");
     var tinderContainer = document.querySelector('.tinder');
     var allCards = document.querySelectorAll('.tinder--card');
     var nope = document.getElementById('nope');
@@ -77,6 +82,8 @@
     }
 
     initCards();
+
+
 
     allCards.forEach(function (el) {
       var hammertime = new Hammer(el);
@@ -124,7 +131,7 @@
 
           if (keep) {
               event.target.style.background = 'white';
-              event.target.style.transition = 'transform 0.05s linear'; // Dodanie animacji CSS
+              event.target.classList.add('move-animation');
               event.target.style.transform = '';
 
           } else {
@@ -139,6 +146,14 @@
               setTimeout(function () {
                   event.target.style.transform = 'translate(' + toX + 'px, ' + (toY + event.deltaY) + 'px) rotate(' + rotate + 'deg)';
               }, 0); // Opóźnienie transformacji
+              if (event.deltaX > 320) {
+                  console.log("dupa");
+                  message.style.display = 'block';
+                  setTimeout(function () {
+                      message.style.display = 'none';
+                  }, 800); // Opóźnienie transformacji
+              }
+
               initCards();
           }
       });
@@ -173,6 +188,25 @@
 
     nope.addEventListener('click', nopeListener);
     love.addEventListener('click', loveListener);
+
+    function showMessage(message, duration) {
+    // Utwórz element div dla wiadomości
+    var messageDiv = document.createElement('div');
+    messageDiv.classList.add('message');
+    messageDiv.innerText = message;
+
+    // Dodaj wiadomość do kontenera na stronie
+    document.getElementById('messageContainer').appendChild(messageDiv);
+
+    // Ustaw widoczność wiadomości
+    messageDiv.style.display = 'block';
+
+    // Po upływie czasu usuń wiadomość
+    setTimeout(function() {
+        messageDiv.style.display = 'none';
+        messageDiv.remove();
+    }, duration);
+}
 
 </script>
 

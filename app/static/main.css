@@ -23,8 +23,6 @@ body {
    border-radius: 8px;
    box-shadow: 0 0 -10px rgba(0, 0, 0, 0.1);
    overflow: hidden;
-   cursor: -webkit-grab;
-   cursor: -moz-grab;
    cursor: grab;
    margin: auto;
 }
@@ -251,6 +249,7 @@ h1, h2, h3 {
     display: flex;
     flex-direction: column;
 }
+
 label[for=email] {
     color: #ccc;
 }
@@ -289,4 +288,28 @@ input#company_check {
     padding: 10px;
     margin-left: 10px;
     margin-right: 10px;
+}
+label[for=cv] {
+    color: #ccc;
+}
+.move-animation {
+    transition: transform 0.05s linear;
+}
+.message {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #242c31;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+    color: lawngreen;
+    opacity: 0.8;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 58px;
+    font-weight: bolder;
+    display: none; /* Ukryj domyślnie */
+    align-content: center;
+    text-align: center;
+    z-index: 9999;
 }
