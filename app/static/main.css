@@ -1,321 +1,342 @@
 body {
-   padding: 0;
-   margin: 0;
-   display: flex;
-   flex-direction: column;
-   min-height: 100vh;
-   justify-content: space-between;
-   overflow-x: hidden;
-  overflow: hidden;
-   align-items: center;
-   --bs-body-bg: #2F373A;
-    @import url(https://fonts.bunny.net/css?family=dm-sans:500,700);
-    font-family: 'DM Sans', sans-serif;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: space-between;
+  overflow-x: hidden;
+ overflow: hidden;
+  align-items: center;
+  --bs-body-bg: #2F373A;
+   @import url(https://fonts.bunny.net/css?family=dm-sans:500,700);
+   font-family: 'DM Sans', sans-serif;
 }
 .content {
 }
 .swiping-card {
-   position: relative;
-   width: 90vw;
-   max-width: 400px;
-   height: 70vh;
-   background-color: #f2f2f2;
-   border-radius: 8px;
-   box-shadow: 0 0 -10px rgba(0, 0, 0, 0.1);
-   overflow: hidden;
-   cursor: grab;
-   margin: auto;
+  position: relative;
+  width: 90vw;
+  max-width: 400px;
+  height: 70vh;
+  background-color: #f2f2f2;
+  border-radius: 8px;
+  box-shadow: 0 0 -10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  cursor: grab;
+  margin: auto;
 }
 
 .swiping-card::-webkit-scrollbar {
-   display: none;
+  display: none;
 }
 
 .swiping-card img {
-   width: 150px;
-   height: 150px;
-   border-radius: 100%;
-   border: 1px solid #ccc;
-   margin: 20px auto;
+  width: 150px;
+  height: 150px;
+  border-radius: 100%;
+  border: 1px solid #ccc;
+  margin: 20px auto;
 }
 
 .swiping-card h1 {
-   font-size: 24px;
-   font-weight: bold;
-   text-align: center;
-   margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .swiping-card section {
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   justify-content: center;
-   padding: 10px;
-   border-top: 1px solid #ccc;
-   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border-top: 1px solid #ccc;
+  text-align: center;
 }
 
 .buttons {
-   text-align: center;
-   margin-top: 20px;
+  text-align: center;
+  margin-top: 20px;
 }
 
 .buttons button {
-   font-size: 32px;
-   cursor: pointer;
-   background: none;
-   border: none;
-   color: #333;
-   margin: 0 10px;
+  font-size: 32px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: #333;
+  margin: 0 10px;
 }
 
 *, *:before, *:after {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+ box-sizing: border-box;
+ padding: 0;
+ margin: 0;
 }
 
 .tinder {
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  opacity: 0;
-  transition: opacity 0.1s ease-in-out;
+ width: 100vw;
+ height: 100vh;
+ overflow: hidden;
+ display: flex;
+ flex-direction: column;
+ position: relative;
+ opacity: 0;
+ transition: opacity 0.1s ease-in-out;
 }
 h1, h2, h3 {
-    font-weight: bold;
+   font-weight: bold;
 }
 .tinder section h1 {
-  text-align: center;
-  font-size: 30px;
+ text-align: center;
+ font-size: 30px;
 }
 .tinder section h2 {
-  text-align: center;
-  font-size: 22px;
+ text-align: center;
+ font-size: 22px;
 }
 .tinder section h3 {
-  text-align: center;
-  font-size: 18px;
+ text-align: center;
+ font-size: 18px;
 
 }
 .loaded.tinder {
-  opacity: 1;
+ opacity: 1;
 }
 
 .tinder--status {
-  position: absolute;
-  top: 50%;
-  z-index: 2;
-  width: 100%;
-  text-align: center;
-  pointer-events: none;
+ position: absolute;
+ top: 50%;
+ z-index: 2;
+ width: 100%;
+ text-align: center;
+ pointer-events: none;
 }
 
 .tinder--status i {
-  font-size: 100px;
-  opacity: 0;
-  transform: scale(0.3);
-  transition: all 0.2s ease-in-out;
-  position: absolute;
-  width: 100px;
-  margin-left: -50px;
+ font-size: 100px;
+ opacity: 0;
+ transform: scale(0.3);
+ transition: all 0.2s ease-in-out;
+ position: absolute;
+ width: 100px;
+ margin-left: -50px;
 }
 
 .tinder_love .fa-heart {
-  opacity: 0.7;
-  transform: scale(1);
+ opacity: 0.7;
+ transform: scale(1);
 }
 
 .tinder_nope .fa-remove {
-  opacity: 0.7;
-  transform: scale(1);
+ opacity: 0.7;
+ transform: scale(1);
 }
 
 .tinder--cards {
-  flex-grow: 1;
-  padding-top: 40px;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1;
+ flex-grow: 1;
+ padding-top: 40px;
+ text-align: center;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ z-index: 1;
 }
 
 .tinder--card {
-  width: 90vw;
-  max-width: 400px;
-  height: 650px;
-  background: #FFFFFF;
-  padding-bottom: 40px;
-  border-radius: 10px;
-  overflow: hidden;
-  position: absolute;
-  will-change: transform;
-  transition: all 0.3s ease-in-out;
-  cursor: grab;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+ width: 90vw;
+ max-width: 400px;
+ height: 650px;
+ background: #FFFFFF;
+ padding-bottom: 40px;
+ border-radius: 8px;
+ overflow: hidden;
+ position: absolute;
+ will-change: transform;
+ transition: all 0.3s ease-in-out;
+ cursor: grab;
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
 }
 
 .tinder--cards .tinder--card:first-child {
-    animation: moveAndChange 2.1s ease-in-out forwards;
+   animation: moveAndChange 2.1s ease-in-out forwards;
 }
 @keyframes moveAndChange {
 0% {
-    transform: translateX(0);
+   transform: translateX(0);
 }
 40% {
-     background-color: rgb(140, 255, 140);
-    transform: translateX(150px);
-    rotate: 15deg;
-    margin-left: 10px;
+    background-color: rgb(140, 255, 140);
+   transform: translateX(150px);
+   rotate: 15deg;
+   margin-left: 10px;
 }
 80% {
-    background-color: rgb(255, 120, 120);
-    transform: translateX(-150px);
-    rotate: -15deg;
-    margin-right: 10px;
-    }
+   background-color: rgb(255, 120, 120);
+   transform: translateX(-150px);
+   rotate: -15deg;
+   margin-right: 10px;
+   }
 }
 
 
 
 .tinder--card img {
-  max-width: 200px;
-  pointer-events: none;
+ max-width: 200px;
+ pointer-events: none;
 }
 
 .tinder--card section {
-  font-size: 32px;
-  padding: 0 16px;
-  pointer-events: none;
+ font-size: 32px;
+ padding: 0 16px;
+ pointer-events: none;
 }
 
 .tinder--card p {
-  margin-top: 24px;
-  font-size: 20px;
-  padding: 0 16px;
-  pointer-events: none;
+ margin-top: 24px;
+ font-size: 20px;
+ padding: 0 16px;
+ pointer-events: none;
 }
 
 .tinder--buttons {
-  flex: 0 0 100px;
-  text-align: center;
-  padding-top: 20px;
+ flex: 0 0 100px;
+ text-align: center;
+ padding-top: 20px;
 }
 .tinder--card .hr-line {
-    margin-bottom: 10px;
-    width: 80%;
-    height: 3px;
-    background-color: #555;
-    pointer-events: none;
+   margin-bottom: 10px;
+   width: 80%;
+   height: 3px;
+   background-color: #555;
+   pointer-events: none;
 }
 .tinder--buttons button {
-  border-radius: 50%;
-  line-height: 60px;
-  width: 60px;
-  border: 0;
-  background: #FFFFFF;
-  display: inline-block;
-  margin: 0 8px;
+ border-radius: 50%;
+ line-height: 60px;
+ width: 60px;
+ border: 0;
+ background: #FFFFFF;
+ display: inline-block;
+ margin: 0 8px;
 }
 
 .tinder--buttons button:focus {
-  outline: 0;
+ outline: 0;
 }
 
 .tinder--buttons i {
-  font-size: 32px;
-  vertical-align: middle;
+ font-size: 32px;
+ vertical-align: middle;
 }
 
 .fa-heart {
-  color: #FFACE4;
+ color: #FFACE4;
 }
 
 .fa-remove {
-  color: #CDD6DD;
+ color: #CDD6DD;
 }
 .listing-additional-info {
-    font-weight: 300;
-    align-self: center;
-    color: #555;
-    /* display: flex; */
-    flex-direction: column;
+   font-weight: 100;
+   align-self: center;
+   color: #555;
+   display: flex;
+   flex-direction: column;
 }
 
 label[for=email] {
-    color: #ccc;
+   color: #ccc;
 }
 input#email {
-    padding: 10px;
+   padding: 10px;
 }
 label[for=password_hash] {
-    color: #ccc;
+   color: #ccc;
 }
 input#password_hash {
-    padding: 10px;
+   padding: 10px;
 }
 input#password {
-    padding: 10px;
+   padding: 10px;
 }
 label[for=remember_me] {
-    color: #ccc;
+   color: #ccc;
 }
 label[for=confirm_password] {
-    color: #ccc;
+   color: #ccc;
 }
 label[for=password] {
-    color: #ccc;
+   color: #ccc;
 }
 input#confirm_password {
-    padding: 10px;
+   padding: 10px;
 }
 input#cv {
-    color: #ccc;
+   color: #ccc;
 }
 label[for=company_check] {
-    color: #ccc;
+   color: #ccc;
 }
 input#remember_me {
-    transform: scale(2);
-    padding: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
+   transform: scale(2);
+   padding: 10px;
+   margin-left: 10px;
+   margin-right: 10px;
 }
 input#company_check {
-    transform: scale(2);
-    padding: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
+   transform: scale(2);
+   padding: 10px;
+   margin-left: 10px;
+   margin-right: 10px;
 }
 label[for=cv] {
-    color: #ccc;
+   color: #ccc;
 }
 .move-animation {
-    transition: transform 0.05s linear;
+   transition: transform 0.05s linear;
 }
 .message {
-    position: absolute;
-    top: 20%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #242c31;
-    font-family: "Comic Sans MS", "Comic Sans", cursive;
-    color: lawngreen;
-    opacity: 0.8;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 58px;
-    font-weight: bolder;
-    display: none; /* Ukryj domyślnie */
-    align-content: center;
-    text-align: center;
-    z-index: 9999;
+   position: absolute;
+   top: 20%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   background-color: #242c31;
+   font-family: "Comic Sans MS", "Comic Sans", cursive;
+   color: lawngreen;
+   opacity: 0.8;
+   padding: 10px 20px;
+   border-radius: 5px;
+   font-size: 58px;
+   font-weight: bolder;
+   display: none; /* Ukryj domyślnie */
+   align-content: center;
+   text-align: center;
+   z-index: 9999;
+}
+
+.applications_box {
+   background-color: #2F373A;
+   border-radius: 15px;
+}
+
+.user_application {
+   position: relative;
+   font-family: Corbel;
+   color: #CCCCCC;
+   opacity: 0.8;
+   padding: 10px 20px;
+   border-radius: 15px;
+   font-size: 16px;
+   font-weight: normal;
+   width: 100%;
+}
+
+.user_application td{
+  font-weight: lighter;
 }

@@ -28,7 +28,7 @@ def index():
     # }
     # return render_template("swaper.html", company=company)
     listings = []
-    for i in range(1,7):
+    for i in range(1,6):
         random_listing = (
             db.session.query(
                 JobPosting.title,
@@ -45,6 +45,7 @@ def index():
         )
         data = random_listing.all()
         posting = {}
+        print(data)
         posting["company"] = data[0][6]
         posting["title"] = data[0][0]
         posting["location"] = data[0][2]
@@ -140,7 +141,7 @@ def embed_json():
 def embed():
     listings = []
     num_of_listings = db.session.query(JobPosting).count()
-    for i in range(1,7):
+    for i in range(1,6):
         random_listing = (
             db.session.query(
                 JobPosting.title,

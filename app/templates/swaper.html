@@ -27,6 +27,8 @@
     flex-direction: column;
     overflow: hidden;
     transition: opacity 0.3s ease-in-out;
+    background-color: #2F373A;
+    color: #cccccc;
 }
 #falling_window_form {
     display: flex;
@@ -80,12 +82,16 @@
 
     <div id="falling_window">
         <h1>
-            Thank you for your interest. To apply more you need to register first.
+            Thank you for applying.<br>
         </h1>
+        <p style="font-size: 20px;">
+            To get in touch with the employeer, create an account first.
+        </p>
+
         <form method="get" id="falling-window-form" action="embed_register?email=document.getElementById('email').value">
-            <label for="email">Type in your email address</label>
+            <label for="email" style="font-size: 24px;">Email: </label>
             <input type="email" name="email" id="email">
-            <button type="submit">Submit</button>
+            <button type="submit" class='btn btn-primary' style='background-color: #ccc; color: #222; padding: 10px; border: 0;'>Submit</button>
         </form>
     </div>
 
@@ -261,4 +267,3 @@
 </script>
 
 {% endblock %}
-
