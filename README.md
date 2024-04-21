@@ -18,14 +18,15 @@
 - [x] main instead of menu, home page
 - [x] register "upload your CV" text
 - [ ] embed register
-- [ ] recruiter styling
-- [ ] main page polish (buttons, more dense text)
+- [ ] recruiter styling, ai button
+- [ ] main page polish (arrows (swipe left to reject, swipe right to apply), more dense text)
 - [ ] presentation
 - [ ] one pager
 - [ ] preparation for judges
 - [ ] paid swipes (hehe)
 - [x] cache openai invokations
-- [ ] db for presentation
+- [x] db for presentation
+- [ ] demo
 
 
 

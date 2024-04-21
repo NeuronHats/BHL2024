@@ -1,36 +1,8 @@
 {% block falling_window %}
-<script>
-
-    const card_2 = document.getElementById('card-2');
-
-    card_2.addEventListener('click', function() {
-        console.log('Card 2 was clicked!');
-    });
-
-
-</script>
+<script src="static/index.js">
 
 
 <style>
-    #falling_window {
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 100;
-        width: 600px;
-        height: 600px;
-        opacity: 0;
-        background-color: white;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        background-color: white;
-        border: 1px solid black;
-        border-radius: 10px;
-        overflow: hidden;
-        transition: opacity 0.3s ease-in-out;
-    }
 </style>
 
 <div id="falling_window">
@@ -43,5 +15,6 @@
         <button type="submit">Submit</button>
     </form>
 </div>
+
 
 {% endblock %}
