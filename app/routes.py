@@ -28,8 +28,7 @@ def index():
     # }
     # return render_template("swaper.html", company=company)
     listings = []
-    num_of_listings = db.session.query(JobPosting).count()
-    for _ in range(10):
+    for i in range(1,7):
         random_listing = (
             db.session.query(
                 JobPosting.title,
@@ -42,7 +41,7 @@ def index():
                 Company.image_b64.label("company_image"),
             )
             .join(Company, JobPosting.company_id == Company.id)
-            .where(JobPosting.id == random.randint(1, num_of_listings))
+            .where(JobPosting.id == i)
         )
         data = random_listing.all()
         posting = {}
@@ -55,6 +54,7 @@ def index():
         posting["image"] = data[0][-1]
         posting["mode"] = data[0][1]
         listings.append(posting)
+    random.shuffle(listings)
     return render_template("index.html", listings=listings)
 
 
@@ -140,7 +140,7 @@ def embed_json():
 def embed():
     listings = []
     num_of_listings = db.session.query(JobPosting).count()
-    for _ in range(10):
+    for i in range(1,7):
         random_listing = (
             db.session.query(
                 JobPosting.title,
@@ -153,7 +153,7 @@ def embed():
                 Company.image_b64.label("company_image"),
             )
             .join(Company, JobPosting.company_id == Company.id)
-            .where(JobPosting.id == random.randint(1, num_of_listings))
+            .where(JobPosting.id == i)
         )
         data = random_listing.all()
         posting = {}
@@ -166,6 +166,7 @@ def embed():
         posting["image"] = data[0][-1]
         posting["mode"] = data[0][1]
         listings.append(posting)
+    random.shuffle(listings)
     return render_template("embed.html", listings=listings)
 
 

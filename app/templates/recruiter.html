@@ -3,18 +3,15 @@
 {% block content %}
 {% include "navbar.html" %}
 <h1>Applications</h1>
-<table>
-    <table style="width: 50%; margin: 50px;">
-        <tr style="color: #ccc; font-size: 12px;">
-            <td>JOB TITLE</td>
-            <td>EMAIL</td>
-            <td>ACCURACY SCORE</td>
-            <td>CV</td>
-            <td>SUMMARY</td>
-        </tr>
-    </table>
-    {% for posting in results %}
     <table style="width: 100%; margin: 50px;">
+    <tr style="color: #ccc; font-size: 12px; font-weight: bold;">
+        <td>JOB TITLE</td>
+        <td>EMAIL</td>
+        <td>ACCURACY SCORE</td>
+        <td>CV</td>
+        <td>SUMMARY</td>
+    </tr>
+    {% for posting in results %}
         <tr style="color: #ccc; font-size: 12px;">
             <td style="margin: 20px;">{{ posting.job_title }}</td>
             <td>{{ posting.email }}</td>
@@ -22,7 +19,6 @@
             <td><a href="/download/{{ posting.cv_filename }}">{{ posting.cv_filename }}</a></td>
             <td>{{ posting.ai_summary }}</td>
         </tr>
+        {% endfor %}
     </table>
-    {% endfor %}
-</table>
 {% endblock %}
