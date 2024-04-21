@@ -1,6 +1,6 @@
 from app import app, db
 from app.AI import keywords
-from app.models import User, Company, JobPosting
+from app.models import User, Company, JobPosting, Cache
 from app.forms import LoginForm, RegistrationForm, EmbedRegistrationForm
 import sqlalchemy as sa
 import io
@@ -222,15 +222,27 @@ def recruiter():
             "cv_filename": job.interested_users.cv_filename,
             "cv_pdf_data": job.interested_users.cv_pdf_content,
             "keywords": job.keywords.split(" "),
+            "user_id": job.interested_users.id,
+            "job_id": job.id
         }
         pdf_io = io.BytesIO(job_data["cv_pdf_data"])
-        text = PdfReader(pdf_io).pages[0].extract_text()
-        job_data["score"] = keywords.search_keywords(job_data["keywords"], text)
-        summary = openai.chat.completions.create(
-            model="gpt-3.5-turbo",
-            messages=[{"role": "user", "content": f"You are given text from the CV of the candidate for the position of {job.title}. Keywords for this position are: {job.keywords}. Summarize it, and based on the content, provide recommendation (of lack there of). Be quite harsh on your judgements, and elaborate on them, but not too much. Your output will server as aid for the recruiter. DO NOT print any markdown. Pay more attention to listed technical skills, not for about me section. Here is text to analyze: {text}"}]
-        )
-        job_data["ai_summary"] = summary.choices[0].message.content
+        cache_hit = db.session.query(Cache.summary).filter_by(user_id=job_data["user_id"], job_id=job_data["job_id"]).first()
+        if not cache_hit:
+            text = PdfReader(pdf_io).pages[0].extract_text()
+            job_data["score"] = keywords.search_keywords(job_data["keywords"], text)
+            summary = openai.chat.completions.create(
+                model="gpt-3.5-turbo",
+                messages=[{"role": "user", "content": f"You are given text from the CV of the candidate for the position of {job.title}. Keywords for this position are: {job.keywords}. Summarize it, and based on the content, provide recommendation (of lack there of). Be quite harsh on your judgements, and elaborate on them, but not too much. Your output will server as aid for the recruiter. DO NOT print any markdown. Pay more attention to listed technical skills, not for about me section. Here is text to analyze: {text}"}]
+            )
+            response = summary.choices[0].message.content
+            cache_record = Cache(user_id=job_data["user_id"], job_id=job_data["job_id"], summary=f"{job_data["score"]};{response}")
+            db.session.add(cache_record)
+            db.session.commit()
+            job_data["ai_summary"] = response
+        else:
+            job_data["score"] = float(cache_hit.summary.split(";")[0])
+            job_data["ai_summary"] = cache_hit.summary.split(";")[1]
+
         results.append(job_data)
 
     # Return the data as JSON, adjust if you want to render a template

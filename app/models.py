@@ -13,7 +13,13 @@ user_interests = sa.Table(
     ),
 )
 
-
+class Cache(db.Model):
+    id: so.Mapped[int] = so.mapped_column(primary_key=True)
+    job_id: so.Mapped[int] = so.mapped_column(sa.Integer)
+    user_id: so.Mapped[int] = so.mapped_column(sa.Integer)
+    keyword_match: so.Mapped[float] = so.mapped_column(sa.Float, default=0)
+    summary: so.Mapped[str] = so.mapped_column(sa.String(2048))
+    
 class User(UserMixin, db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
     is_company: so.Mapped[bool] = so.mapped_column(sa.Boolean, nullable=True)
