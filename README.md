@@ -1,4 +1,4 @@
-# Job-Up - Swiat pracy na wyciągnięcie palca
+# Job-Up - świat pracy na wyciągnięcie palca
 
 ## Opis projektu
 
