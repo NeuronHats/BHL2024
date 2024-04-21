@@ -70,7 +70,7 @@
         </div>
 
         {% endfor %}
-        <div class="message" id="message">APPLIED</div>
+        <div class="message" id="message" style="font-family: 'DM Sans', sans-serif;">Applied</div>
         <h2 id="no-jobs-left"> No more job offers to show</h2>
 
 
@@ -110,9 +110,10 @@
 
     function showFallingWindow() {
         console.log("clicked")
-        document.getElementById("falling_window").style.transition = "opacity 0.3s ease-in-out";
-
-        document.getElementById("falling_window").style.top = "0";
+        if (window.location.pathname == "/embed") {
+            document.getElementById("falling_window").style.transition = "opacity 0.3s ease-in-out";
+            document.getElementById("falling_window").style.top = "0";
+        }
     }
 
     var message = document.getElementById("message");
