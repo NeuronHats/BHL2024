@@ -14,6 +14,20 @@
     color: white;
     width: 220px;
 }
+#falling_window {
+    position: absolute;
+    z-index: 100;
+    top:-100%;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    justify-content: center;
+    flex-direction: column;
+    overflow: hidden;
+    transition: opacity 0.3s ease-in-out;
+}
 
 </style>
 
@@ -26,11 +40,14 @@
     <div class="tinder--cards">
 
         {% for listing in listings %}
-        <div class="tinder--card">
+        {% if loop.index > 1 %}
+            <div class="tinder--card" id="card-{{ loop.index }}" onmouseover="showFallingWindow()">
+        {% else %}
+            <div class="tinder--card" id="card-{{ loop.index }}">
+        {% endif %}
             <section class="listing-main-info">
                 <img src="data:image/jpeg;base64,{{ listing.image }}" alt="">
                 <h1>{{ listing.company }}</h1>
-
                 <h3>{{ listing.title }}</h3>
                 <h2>{{ listing.lower }}zł - {{ listing.upper }}zł</h2>
 
@@ -56,6 +73,16 @@
     </div>
 
 
+    <div id="falling_window">
+        <p>
+        You need to register to apply more
+        </p>
+        <form method="post">
+            <label for="email">Type in your email address</label>
+            <input type="email" name="email" id="email">
+            <button type="submit">Submit</button>
+        </form>
+    </div>
 
     <div class="tinder--buttons">
         <button id="nope"><i class="fa fa-remove"></i></button>
@@ -63,8 +90,25 @@
     </div>
 </div>
 
+    <div id="falling_window">
+        <p>
+        You need to register to apply more
+        </p>
+        <form method="post">
+            <label for="email">Type in your email address</label>
+            <input type="email" name="email" id="email">
+            <button type="submit">Submit</button>
+        </form>
+    </div>
 <script>
     'use strict';
+
+    function showFallingWindow() {
+        console.log("clicked")
+        document.getElementById("falling_window").style.transition = "opacity 0.3s ease-in-out";
+
+        document.getElementById("falling_window").style.top = "0";
+    }
 
     var message = document.getElementById("message");
     var tinderContainer = document.querySelector('.tinder');
