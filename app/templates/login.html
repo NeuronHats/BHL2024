@@ -1,24 +1,26 @@
 {% extends "base.html" %}
-
 {% block content %}
-    <h1>Sign In</h1>
-    <form action="" method="post" novalidate>
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.email.label }}<br>
-            {{ form.email(size=32) }}
-            {% for error in form.email.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.password_hash.label }}<br>
-            {{ form.password_hash(size=32) }}
-            {% for error in form.password_hash.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
-        <p>{{ form.submit() }}</p>
-    </form>
+    {% include 'navbar.html' %}
+    <div style="width: 17%; margin: auto auto auto auto; margin-top: 15%;">
+        <h1 style="color: #ccc; font-size: 48px;">Sign In</h1>
+        <form action="" method="post" novalidate>
+            {{ form.hidden_tag() }}
+            <p>
+                {{ form.email.label }}<br>
+                {{ form.email(size=32) }}
+                {% for error in form.email.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.password_hash.label }}<br>
+                {{ form.password_hash(size=32) }}
+                {% for error in form.password_hash.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+            <p>{{ form.submit(class='btn btn-primary', style='background-color: #ccc; color: #222; padding: 10px; border: 0;') }}</p>
+        </form>
+    </div>
 {% endblock %}

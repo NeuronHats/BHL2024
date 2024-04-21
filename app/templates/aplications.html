@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% include 'navbar.html' %}
+    <div class="application">
+        <table style="width: 100%; margin: 100px;">
+            <tr style="color: #ccc; font-size: 32px;">
+                <th>Date of application</th>
+                <th>Company</th>
+                <th>Job position</th>
+                <th>Status of application</th>
+            </tr>
+            <tr style="color: #ccc; font-size: 24px;">
+                <td>21.04.2024</td>
+                <td>Microsoft</td>
+                <td>Mid DevOps engineer</td>
+                <td>Pending</td>
+            </tr>
+            <tr style="color: #ccc; font-size: 24px;">
+                <td>20.04.2024</td>
+                <td>Google</td>
+                <td>Senior software engineer</td>
+                <td>Pending</td>
+            </tr>
+            <tr style="color: #ccc; font-size: 24px;">
+                <td>17.04.2024</td>
+                <td>Amazon</td>
+                <td>Senior AI engineer</td>
+                <td>Pending</td>
+            </tr>
+        </table>
+    </div>
+{% endblock %}

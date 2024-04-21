@@ -6,6 +6,24 @@
 - swipe left right
 
 
+# TODO:
+- [x] applications
+- [x] login styles
+- [x] register styles
+- [x] recruiter panel
+- [x] main page if no cards, show text "no more cards"
+- [x] ai sumarizer
+- [ ] message "applied" when you swipe right
+- [ ] main page polish (buttons, more dense text)
+- [ ] embed register
+- [ ] presentation
+- [ ] one pager
+- [ ] preparation for judges
+- [ ] paid swipes (hehe)
+- [ ] main instead of menu, home page
+- [ ] register "upload your CV" text
+
+
 
 
 

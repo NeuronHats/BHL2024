@@ -69,6 +69,7 @@ class JobPosting(db.Model):
     location: so.Mapped[str] = so.mapped_column(sa.String(256))
     salary_range_lower: so.Mapped[int] = so.mapped_column(sa.Integer)
     salary_range_upper: so.Mapped[int] = so.mapped_column(sa.Integer)
+    keywords: so.Mapped[Optional[str]] = so.mapped_column(sa.String(1024))
     distance: so.Mapped[str] = so.mapped_column(sa.String(64))
     company_id: so.Mapped[int] = so.mapped_column(
         sa.Integer, sa.ForeignKey("company.id")

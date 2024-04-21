@@ -3,12 +3,16 @@ from app.AI import keywords
 from app.models import User, Company, JobPosting
 from app.forms import LoginForm, RegistrationForm, EmbedRegistrationForm
 import sqlalchemy as sa
+import io
 from sqlalchemy.orm import joinedload
 from flask import jsonify, render_template, redirect, url_for, request, flash
 from flask_login import current_user, logout_user, login_user
-
+from pypdf import PdfReader
+import os
 import random
+import openai
 
+openai.api_key = os.getenv("OPENAI_KEY", "")
 
 @app.route("/")
 def index():
@@ -22,7 +26,34 @@ def index():
     #     "city": "San Francisco",
     # }
     # return render_template("swaper.html", company=company)
-    return render_template("index.html")
+    listings = []
+    num_of_listings = db.session.query(JobPosting).count()
+    for _ in range(10):
+        random_listing = (
+            db.session.query(
+                JobPosting.title,
+                JobPosting.description,
+                JobPosting.location,
+                JobPosting.distance,
+                JobPosting.salary_range_lower,
+                JobPosting.salary_range_upper,
+                Company.name.label("company_name"),
+                Company.image_b64.label("company_image"),
+            )
+            .join(Company, JobPosting.company_id == Company.id)
+            .where(JobPosting.id == random.randint(1, num_of_listings))
+        )
+        data = random_listing.all()
+        posting = {}
+        posting["company"] = data[0][6]
+        posting["title"] = data[0][0]
+        posting["location"] = data[0][2]
+        posting["distance"] = data[0][3]
+        posting["lower"] = data[0][4]
+        posting["upper"] = data[0][5]
+        posting["image"] = data[0][-1]
+        listings.append(posting)
+    return render_template("index.html", listings=listings)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -174,6 +205,7 @@ def express_interest():
     return jsonify({'message': 'Interest in job offer registered successfully'}), 200
 
 
+
 @app.route("/recruiter")
 def recruiter():
     job_postings = JobPosting.query.filter_by(company_id=2).options(
@@ -181,23 +213,37 @@ def recruiter():
     ).all()
     results = []
     for job in job_postings:
-        print(job.__dict__)
         job_data = {
             'job_title': job.title,
             'email': job.interested_users.email,
             'cv_filename': job.interested_users.cv_filename,
-            'cv_pdf_data': job.interested_users.cv_pdf_content
+            'cv_pdf_data': job.interested_users.cv_pdf_content,
+            'keywords': job.keywords.split(' ')
         }
+        pdf_io = io.BytesIO(job_data["cv_pdf_data"])
+        text = PdfReader(pdf_io).pages[0].extract_text()
+        job_data['score'] = keywords.search_keywords(job_data['keywords'], text)
+        summary = openai.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[{"role": "user", "content": f"You are given text from the CV of the candidate for the position of {job.title}. Keywords for this position are: {job.keywords}. Summarize it, and based on the content, provide recommendation (of lack there of). Be quite harsh on your judgements, and elaborate on them, but not too much. Your output will server as aid for the recruiter. DO NOT print any markdown. Pay more attention to listed technical skills, not for about me section. Here is text to analyze: {text}"}]
+        )
+        job_data["ai_summary"] = summary.choices[0].message.content
         results.append(job_data)
 
     # Return the data as JSON, adjust if you want to render a template
-    return jsonify(results)
+    return render_template("recruiter.html", results=results)
 
 @app.route("/embed_test")
 def embed_test():
     width = 500
     height = 700
     return render_template("embed_test.html", width=width, height=height)
+
+
+@app.route("/applications")
+def applications():
+    aplications = []
+    return render_template("aplications.html", aplications=aplications)
 
 
 @app.route("/logout")

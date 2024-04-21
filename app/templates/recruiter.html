@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% include "navbar.html" %}
+<h1>Applications</h1>
+<table>
+    {% for posting in results %}
+    <tr>
+        <td>{{ posting.job_title }}</td>
+        <td>{{ posting.email }}</td>
+        <td>{{ posting.score * 100}}%</td>
+        <td>{{ posting.cv_filename }}</td>
+    </tr>
+    <tr>
+        <td>{{ posting.ai_summary }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
