@@ -23,8 +23,6 @@ body {
    border-radius: 8px;
    box-shadow: 0 0 -10px rgba(0, 0, 0, 0.1);
    overflow: hidden;
-   cursor: -webkit-grab;
-   cursor: -moz-grab;
    cursor: grab;
    margin: auto;
 }
@@ -290,6 +288,7 @@ input#company_check {
     padding: 10px;
     margin-left: 10px;
     margin-right: 10px;
+}
 
 .move-animation {
     transition: transform 0.05s linear;
