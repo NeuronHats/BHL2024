@@ -9,7 +9,7 @@
         <td>{{ posting.job_title }}</td>
         <td>{{ posting.email }}</td>
         <td>{{ posting.score * 100}}%</td>
-        <td>{{ posting.cv_filename }}</td>
+        <td><a href="/download/{{ posting.cv_filename }}">{{ posting.cv_filename }}</a></td>
     </tr>
     <tr>
         <td>{{ posting.ai_summary }}</td>
