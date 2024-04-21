@@ -235,7 +235,7 @@ def recruiter():
                 messages=[{"role": "user", "content": f"You are given text from the CV of the candidate for the position of {job.title}. Keywords for this position are: {job.keywords}. Summarize it, and based on the content, provide recommendation (of lack there of). Be quite harsh on your judgements, and elaborate on them, but not too much. Your output will server as aid for the recruiter. DO NOT print any markdown. Pay more attention to listed technical skills, not for about me section. Here is text to analyze: {text}"}]
             )
             response = summary.choices[0].message.content
-            cache_record = Cache(user_id=job_data["user_id"], job_id=job_data["job_id"], summary=f"{job_data["score"]};{response}")
+            cache_record = Cache(user_id=job_data["user_id"], job_id=job_data["job_id"], summary=f"{job_data['score']};{response}")
             db.session.add(cache_record)
             db.session.commit()
             job_data["ai_summary"] = response

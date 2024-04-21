@@ -17,14 +17,14 @@
 - [x] message "applied" when you swipe right
 - [x] main instead of menu, home page
 - [x] register "upload your CV" text
-- [x] embed register
+- [ ] embed register
 - [ ] recruiter styling
 - [ ] main page polish (buttons, more dense text)
 - [ ] presentation
 - [ ] one pager
 - [ ] preparation for judges
 - [ ] paid swipes (hehe)
-- [ ] cache openai invokations
+- [x] cache openai invokations
 - [ ] db for presentation
 
 
