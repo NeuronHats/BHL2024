@@ -82,10 +82,12 @@
         <h1>
             Thank you for your interest. To apply more you need to register first.
         </h1>
-        <form method="get" id="falling-window-form" action="embed_register?email=document.getElementById('email').value">
+        <form method="get" id="falling-window-form">
             <label for="email">Type in your email address</label>
             <input type="email" name="email" id="email">
-            <button type="submit">Submit</button>
+            <a href="127.0.0.1:5000/embed_register?email=document.getElementById('email').value" target="_blank">
+                <button type="submit">Submit</button>
+            </a>
         </form>
     </div>
 
