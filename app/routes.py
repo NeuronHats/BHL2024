@@ -5,7 +5,7 @@ from app.forms import LoginForm, RegistrationForm, EmbedRegistrationForm
 import sqlalchemy as sa
 import io
 from sqlalchemy.orm import joinedload
-from flask import jsonify, render_template, redirect, url_for, request, flash
+from flask import jsonify, render_template, redirect, url_for, request, flash, Response
 from flask_login import current_user, logout_user, login_user
 from pypdf import PdfReader
 import os
@@ -232,6 +232,11 @@ def recruiter():
 
     # Return the data as JSON, adjust if you want to render a template
     return render_template("recruiter.html", results=results)
+
+@app.route("/download/<filename>")
+def download(filename):
+    user = User.query.filter_by(cv_filename=filename).first()
+    return Response(user.cv_pdf_content, mimetype='application/pdf')
 
 @app.route("/embed_test")
 def embed_test():
