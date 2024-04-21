@@ -105,9 +105,10 @@
 
     function showFallingWindow() {
         console.log("clicked")
-        document.getElementById("falling_window").style.transition = "opacity 0.3s ease-in-out";
-
-        document.getElementById("falling_window").style.top = "0";
+        if (window.location.pathname == "/embed") {
+            document.getElementById("falling_window").style.transition = "opacity 0.3s ease-in-out";
+            document.getElementById("falling_window").style.top = "0";
+        }
     }
 
     var message = document.getElementById("message");
